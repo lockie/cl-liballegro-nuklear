@@ -1,0 +1,10 @@
+#define NK_IMPLEMENTATION
+#define NK_INCLUDE_DEFAULT_ALLOCATOR
+#define NK_INCLUDE_FIXED_TYPES
+#define NK_INCLUDE_STANDARD_IO
+#define NK_BUTTON_TRIGGER_ON_RELEASE
+
+#define NK_ALLEGRO5_IMPLEMENTATION
+
+#include "nuklear.h"
+#include "nuklear_allegro5.h"
