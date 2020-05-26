@@ -29,6 +29,22 @@
   (w :float)
   (h :float))
 
+(cffi:defcstruct (image :class image)
+  (handle :pointer)
+  (w :unsigned-short)
+  (h :unsigned-short)
+  (region :uint64))
+
+(defmethod cffi:translate-into-foreign-memory (object (type image) pointer)
+  (cffi:with-foreign-slots ((handle w h region) pointer (:struct image))
+   (setf handle (cffi:make-pointer (getf object :handle))
+         w (getf object :w)
+         h (getf object :h)
+         region (getf object :region))))
+(defmethod cffi:translate-from-foreign (pointer (type image))
+  (cffi:with-foreign-slots ((handle w h region) pointer (:struct image))
+    (list :handle (cffi:pointer-address handle) :w w :h h :region region)))
+
 (defmethod cffi:translate-into-foreign-memory (object (type rect) pointer)
   (cffi:with-foreign-slots ((x y w h) pointer (:struct rect))
    (setf x (getf object :x)
@@ -141,7 +157,7 @@
 	(#.(swig-lispify "handle" 'slotname) :pointer)
 	(#.(swig-lispify "w" 'slotname) :unsigned-short)
 	(#.(swig-lispify "h" 'slotname) :unsigned-short)
-	(#.(swig-lispify "region" 'slotname) :pointer :count 4))
+	(#.(swig-lispify "region" 'slotname) :uint64))
 
 (cffi:defcstruct (#.(swig-lispify "scroll" 'classname) :class #.(swig-lispify "scroll" 'classname))
 	(#.(swig-lispify "x" 'slotname) :unsigned-int)
@@ -351,6 +367,18 @@
 	#.(swig-lispify "CURSOR_RESIZE_TOP_LEFT_DOWN_RIGHT" 'enumvalue :keyword)
 	#.(swig-lispify "CURSOR_RESIZE_TOP_RIGHT_DOWN_LEFT" 'enumvalue :keyword)
 	#.(swig-lispify "CURSOR_COUNT" 'enumvalue :keyword))
+
+(cffi:defcenum #.(swig-lispify "style_item_type" 'enumname)
+	#.(swig-lispify "STYLE_ITEM_COLOR" 'enumvalue :keyword)
+	#.(swig-lispify "STYLE_ITEM_IMAGE" 'enumvalue :keyword))
+
+(cffi:defcunion #.(swig-lispify "style_item_data" 'classname)
+	(#.(swig-lispify "image" 'slotname) (:struct #.(swig-lispify "image" 'classname)))
+	(#.(swig-lispify "color" 'slotname) (:struct #.(swig-lispify "color" 'classname))))
+
+(cffi:defcstruct (#.(swig-lispify "style_item" 'classname) :class #.(swig-lispify "style_item" 'classname))
+	(#.(swig-lispify "type" 'slotname) #.(swig-lispify "style_item_type" 'enumname))
+	(#.(swig-lispify "data" 'slotname) (:struct #.(swig-lispify "image" 'classname))))
 
 (cffi:defcfun ("nk_init_default" #.(swig-lispify "init_default" 'function)) :int
   (arg0 :pointer)
@@ -1685,7 +1713,7 @@
 (cffi:defcfun ("nk_style_push_style_item" #.(swig-lispify "style_push_style_item" 'function)) :int
   (arg0 :pointer)
   (arg1 :pointer)
-  (arg2 :pointer))
+  (arg2 (:struct #.(swig-lispify "style_item" 'classname))))
 
 (cffi:defcfun ("nk_style_push_flags" #.(swig-lispify "style_push_flags" 'function)) :int
   (arg0 :pointer)
@@ -2327,13 +2355,13 @@
   (arg0 :pointer)
   (arg1 #.(swig-lispify "keys" 'enumname)))
 
-(cffi:defcfun ("nk_style_item_image" #.(swig-lispify "style_item_image" 'function)) :pointer
+(cffi:defcfun ("nk_style_item_image" #.(swig-lispify "style_item_image" 'function)) (:struct #.(swig-lispify "style_item" 'classname))
   (img (:struct #.(swig-lispify "image" 'classname))))
 
-(cffi:defcfun ("nk_style_item_color" #.(swig-lispify "style_item_color" 'function)) :pointer
+(cffi:defcfun ("nk_style_item_color" #.(swig-lispify "style_item_color" 'function)) (:struct #.(swig-lispify "style_item" 'classname))
   (arg0 (:struct #.(swig-lispify "color" 'classname))))
 
-(cffi:defcfun ("nk_style_item_hide" #.(swig-lispify "style_item_hide" 'function)) :pointer)
+(cffi:defcfun ("nk_style_item_hide" #.(swig-lispify "style_item_hide" 'function)) (:struct #.(swig-lispify "style_item" 'classname)))
 
 (cffi:defcfun ("nk_allegro5_init" #.(swig-lispify "allegro_init" 'function)) :pointer
   (font :pointer)

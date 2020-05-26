@@ -20,7 +20,8 @@ $(dir)interface.lisp: $(dir)interface.i
 	swig -cffi $^
 	sed -i 's/swig-lispify "nk_\([a-z0-9_]*\)"/swig-lispify "\1"/gi' $@
 	sed -i 's/"prog"/"prog_"/' $@
-	sed -i '/defcstruct/b; /defcunion/b; s/\(#\.(swig-lispify "[a-zA-Z0-9_]*" '\''classname)\)/(:struct \1)/g' $@
+	sed -i '/defcstruct/b; /defcunion/b; /style_item_data/b; s/\(#\.(swig-lispify "[a-zA-Z0-9_]*" '\''classname)\)/(:struct \1)/g' $@
+	sed -i 's/:pointer :count 4/:uint64/g' $@
 	sed -i 's/defcstruct \(.*\)/defcstruct (\1 :class \1)/' $@
 	sed -i 's/"allegro5/"allegro/g' $@
 

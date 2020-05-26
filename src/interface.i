@@ -28,6 +28,22 @@
   (w :float)
   (h :float))
 
+(cffi:defcstruct image
+  (handle :pointer)
+  (w :unsigned-short)
+  (h :unsigned-short)
+  (region :uint64))
+
+(defmethod cffi:translate-into-foreign-memory (object (type image) pointer)
+  (cffi:with-foreign-slots ((handle w h region) pointer (:struct image))
+   (setf handle (cffi:make-pointer (getf object :handle))
+         w (getf object :w)
+         h (getf object :h)
+         region (getf object :region))))
+(defmethod cffi:translate-from-foreign (pointer (type image))
+  (cffi:with-foreign-slots ((handle w h region) pointer (:struct image))
+    (list :handle (cffi:pointer-address handle) :w w :h h :region region)))
+
 (defmethod cffi:translate-into-foreign-memory (object (type rect) pointer)
   (cffi:with-foreign-slots ((x y w h) pointer (:struct rect))
    (setf x (getf object :x)
@@ -264,6 +280,22 @@ enum nk_style_cursor {
     NK_CURSOR_RESIZE_TOP_LEFT_DOWN_RIGHT,
     NK_CURSOR_RESIZE_TOP_RIGHT_DOWN_LEFT,
     NK_CURSOR_COUNT
+};
+
+enum nk_style_item_type {
+    NK_STYLE_ITEM_COLOR,
+    NK_STYLE_ITEM_IMAGE
+};
+
+union nk_style_item_data {
+    struct nk_image image;
+    struct nk_color color;
+};
+
+struct nk_style_item {
+    enum nk_style_item_type type;
+    //union nk_style_item_data data;
+    struct nk_image data;
 };
 
 // Context
