@@ -13,6 +13,12 @@
         #'(lambda (flag) (cffi:foreign-enum-value flag-type flag))
         flags))))
 
+(cffi:defcstruct (color :class color)
+  (r :unsigned-char)
+  (g :unsigned-char)
+  (b :unsigned-char)
+  (a :unsigned-char))
+
 (cffi:defcstruct (vec-2 :class vec-2)
   (x :float)
   (y :float))
@@ -40,6 +46,16 @@
 (defmethod cffi:translate-from-foreign (pointer (type vec-2))
   (cffi:with-foreign-slots ((x y) pointer (:struct vec-2))
     (list :x x :y y)))
+
+(defmethod cffi:translate-into-foreign-memory (object (type color) pointer)
+  (cffi:with-foreign-slots ((r g b a) pointer (:struct color))
+   (setf r (getf object :r)
+         g (getf object :g)
+         b (getf object :b)
+         a (getf object :a))))
+(defmethod cffi:translate-from-foreign (pointer (type color))
+  (cffi:with-foreign-slots ((r g b a) pointer (:struct color))
+    (list :r r :g g :b b :a a)))
 
 (defmacro tree-push (ctx type title state)
   (let ((hash (string (gensym "nk-tree-hash"))))
