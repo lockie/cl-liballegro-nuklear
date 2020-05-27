@@ -736,6 +736,8 @@ struct nk_context*     nk_allegro5_init(NkAllegro5Font *font, ALLEGRO_DISPLAY *d
 void                   nk_allegro5_handle_event(ALLEGRO_EVENT *ev);
 void                   nk_allegro5_shutdown(void);
 void                   nk_allegro5_render(void);
+struct nk_image*       nk_allegro5_create_image(const char* file_name);
+void                   nk_allegro5_del_image(struct nk_image* image);
 NkAllegro5Font*        nk_allegro5_font_create_from_file(const char *file_name, int font_size, int flags);
 void                   nk_allegro5_font_del(NkAllegro5Font *font);
 void                   nk_allegro5_font_set_font(NkAllegro5Font *font);

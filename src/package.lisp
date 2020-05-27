@@ -472,6 +472,8 @@
    #:allegro-handle-event
    #:allegro-shutdown
    #:allegro-render
+   #:allegro-create-image
+   #:allegro-del-image
    #:allegro-font-create-from-file
    #:allegro-font-del
    #:allegro-font-set-font

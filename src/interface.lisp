@@ -2376,6 +2376,12 @@
 
 (cffi:defcfun ("nk_allegro5_render" #.(swig-lispify "allegro_render" 'function)) :void)
 
+(cffi:defcfun ("nk_allegro5_create_image" #.(swig-lispify "allegro_create_image" 'function)) :pointer
+  (file_name :string))
+
+(cffi:defcfun ("nk_allegro5_del_image" #.(swig-lispify "allegro_del_image" 'function)) :void
+  (image :pointer))
+
 (cffi:defcfun ("nk_allegro5_font_create_from_file" #.(swig-lispify "allegro_font_create_from_file" 'function)) :pointer
   (file_name :string)
   (font_size :int)
