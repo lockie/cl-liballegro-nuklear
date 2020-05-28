@@ -145,7 +145,7 @@
   (nk:filter-float edit rune))
 
 (defun calculator (ctx)
-  (unless (zerop (nk:begin ctx "Calculator" '(:x 10f0 :y 10f0 :w 180f0 :h 250f0)
+  (unless (zerop (nk:begin ctx "Calculator" '(nk::x 10f0 nk::y 10f0 nk::w 180f0 nk::h 250f0)
                            (nk:flags :panel-flags
                                      :+window-border+
                                      :+window-no-scrollbar+
@@ -270,7 +270,7 @@
               (nk:input-end ctx)
               ;; GUI
               (unless (zerop (nk:begin
-                              ctx "Demo" '(:x 50f0 :y 50f0 :w 200f0 :h 200f0)
+                              ctx "Demo" '(nk::x 50f0 nk::y 50f0 nk::w 200f0 nk::h 200f0)
                               (nk:flags :panel-flags
                                         :+window-border+
                                         :+window-movable+

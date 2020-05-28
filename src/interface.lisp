@@ -36,42 +36,19 @@
   (region :uint64))
 
 (defmethod cffi:translate-into-foreign-memory (object (type image) pointer)
-  (cffi:with-foreign-slots ((handle w h region) pointer (:struct image))
-   (setf handle (cffi:make-pointer (getf object :handle))
-         w (getf object :w)
-         h (getf object :h)
-         region (getf object :region))))
-(defmethod cffi:translate-from-foreign (pointer (type image))
-  (cffi:with-foreign-slots ((handle w h region) pointer (:struct image))
-    (list :handle (cffi:pointer-address handle) :w w :h h :region region)))
-
-(defmethod cffi:translate-into-foreign-memory (object (type rect) pointer)
-  (cffi:with-foreign-slots ((x y w h) pointer (:struct rect))
-   (setf x (getf object :x)
-         y (getf object :y)
-         w (getf object :w)
-         h (getf object :h))))
-(defmethod cffi:translate-from-foreign (pointer (type rect))
-  (cffi:with-foreign-slots ((x y w h) pointer (:struct rect))
-    (list :x x :y y :w w :h h)))
-
-(defmethod cffi:translate-into-foreign-memory (object (type vec-2) pointer)
-  (cffi:with-foreign-slots ((x y) pointer (:struct vec-2))
-   (setf x (getf object :x)
-         y (getf object :y))))
-(defmethod cffi:translate-from-foreign (pointer (type vec-2))
-  (cffi:with-foreign-slots ((x y) pointer (:struct vec-2))
-    (list :x x :y y)))
-
-(defmethod cffi:translate-into-foreign-memory (object (type color) pointer)
-  (cffi:with-foreign-slots ((r g b a) pointer (:struct color))
-   (setf r (getf object :r)
-         g (getf object :g)
-         b (getf object :b)
-         a (getf object :a))))
-(defmethod cffi:translate-from-foreign (pointer (type color))
-  (cffi:with-foreign-slots ((r g b a) pointer (:struct color))
-    (list :r r :g g :b b :a a)))
+  (if (cffi:pointerp object) ;; allow passing result of nk:allegro-create-image as image struct
+      (let (handle* w* h* region*)
+        (cffi:with-foreign-slots ((handle w h region) object (:struct image))
+          (setf handle* handle
+                w* w
+                h* h
+                region* region))
+        (cffi:with-foreign-slots ((handle w h region) pointer (:struct image))
+          (setf handle handle*
+                w w*
+                h h*
+                region region*)))
+      (call-next-method)))
 
 (defmacro tree-push (ctx type title state)
   (let ((hash (string (gensym "nk-tree-hash"))))
