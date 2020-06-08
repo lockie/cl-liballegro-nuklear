@@ -14,4 +14,5 @@
   :components ((:makefile "Makefile")
                (:file "package")
                (:file "library")
-               (:file "interface")))
+               (:file "interface")
+               (:file "lispy")))

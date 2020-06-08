@@ -74,6 +74,8 @@ See [example.lisp](src/example.lisp) for more involved example.
 
 **Note**: `nk:prog` is renamed to `nk:prog-` because of obvious `NAME-CONFLICT` error.
 
+There's also lispy interface making library interaction more idiomatic of CL. See docstrings in [lispy.lisp](src/lispy.lisp) for documentation.
+
 Related projects
 ----------------
 * [bodge-nuklear](http://quickdocs.org/bodge-nuklear), which depends on [nuklear-blob](http://quickdocs.org/nuklear-blob) is other CFFI wrapper for Nuklear. It does not include glue code for liballegro, but designed to work with OpenGL-based [cl-bodge](https://github.com/borodust/cl-bodge) game framework.

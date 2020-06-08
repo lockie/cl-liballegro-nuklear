@@ -478,4 +478,16 @@
    #:allegro-font-del
    #:allegro-font-set-font
    ;; Helpers
-   #:flags))
+   #:flags
+   ;; Lispy interface
+   #:with-color
+   #:with-rect
+   #:with-window
+   #:with-button-label
+   #:with-layout-space
+   #:with-style-item
+   #:with-style-items
+   #:with-style-color
+   #:with-style-colors
+   #:with-style-font
+   ))
