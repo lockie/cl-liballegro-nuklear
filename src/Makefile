@@ -1,7 +1,9 @@
 lib_extension=
 lib_prefix=
+exe_extension=
 ifeq ($(OS),Windows_NT)
 	lib_extension=dll
+	exe_extension=.exe
 else
 	lib_prefix=lib
 	uname := $(shell uname -s)
@@ -14,7 +16,7 @@ endif
 
 dir=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
-all: $(dir)interface.lisp $(dir)$(lib_prefix)allegro_nuklear.$(lib_extension)
+all: $(dir)interface.lisp $(dir)offsets.lisp $(dir)$(lib_prefix)allegro_nuklear.$(lib_extension)
 
 $(dir)interface.lisp: $(dir)interface.i
 	swig -cffi $^
@@ -25,10 +27,16 @@ $(dir)interface.lisp: $(dir)interface.i
 	sed -i 's/defcstruct \(.*\)/defcstruct (\1 :class \1)/' $@
 	sed -i 's/"allegro5/"allegro/g' $@
 
+$(dir)offsets.lisp: $(dir)gen-offsets$(exe_extension)
+	$^ > $@
+
+$(dir)gen-offsets$(exe_extension): $(dir)gen-offsets.c
+	gcc $< -std=c99 -O2 -pipe -fPIC -o $@
+
 $(dir)$(lib_prefix)allegro_nuklear.$(lib_extension): $(dir)nuklear.c $(dir)nuklear.h $(dir)nuklear_allegro5.h
 	gcc $< -std=c99 -O2 -pipe -fPIC -shared -lallegro -lallegro_font -lallegro_image -lallegro_primitives -lallegro_ttf -o $@
 
 clean:
-	rm -rf interface.lisp *.dll *.dylib *.so
+	rm -rf interface.lisp offsets.lisp *.dll *.dylib *.so *.exe gen-offsets core
 
 .PHONY: clean

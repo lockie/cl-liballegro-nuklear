@@ -54,3 +54,7 @@ flycheck_*.el
 *.dll
 *.dylib
 *.so
+*.exe
+core
+gen-offsets
+offsets.lisp

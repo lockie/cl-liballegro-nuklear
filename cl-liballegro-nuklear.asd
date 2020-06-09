@@ -15,4 +15,5 @@
                (:file "package")
                (:file "library")
                (:file "interface")
-               (:file "lispy")))
+               (:file "lispy")
+               (:file "offsets")))
