@@ -41,12 +41,12 @@ then executes BODY, then calls nk_style_pop_style_item."
      ,@body
      (style-pop-style-item ,context)))
 
-(defmacro with-style-items (items &body body)
+(defmacro with-style-items (context items &body body)
   "Use this instead of chain calling WITH-STYLE-ITEM."
   (if items
       (let ((item (first items)))
-        `(with-style-item ,(first item) ,(second item) ,(third item)
-           (with-style-items ,(rest items)
+        `(with-style-item ,context ,(first item) ,(second item)
+           (with-style-items ,context ,(rest items)
              ,@body)))
       `(progn ,@body)))
 
@@ -58,13 +58,13 @@ then executes BODY, then calls nk_style_pop_color."
      ,@body
      (style-pop-color ,context)))
 
-(defmacro with-style-colors (colors &body body)
+(defmacro with-style-colors (context colors &body body)
   "Use this instead of chain calling WITH-STYLE-COLOR."
   (if colors
       (let ((color (first colors)))
-        (destructuring-bind (context offset (&key r g b a)) color
+        (destructuring-bind (offset (&key r g b a)) color
           `(with-style-color ,context ,offset (:r ,r :g ,g :b ,b :a ,a)
-             (with-style-colors ,(rest colors)
+             (with-style-colors ,context ,(rest colors)
                ,@body))))
       `(progn ,@body)))
 
