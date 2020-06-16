@@ -75,3 +75,10 @@ then calls nk_style_pop_font."
      (style-push-font ,context ,font)
      ,@body
      (style-pop-font ,context)))
+
+(defmacro with-input (context &body body)
+  "Calls nk_input_begin with CONTEXT argument, then executes BODY, then calls nk_input_end."
+  `(progn
+     (input-begin ,context)
+     ,@body
+     (input-end ,context)))

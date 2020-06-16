@@ -489,6 +489,7 @@
    #:with-style-color
    #:with-style-colors
    #:with-style-font
+   #:with-input
    ;; Offsets
    #:+style-text-color+
    #:+style-text-padding+
