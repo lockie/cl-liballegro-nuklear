@@ -100,3 +100,25 @@ then calls nk_style_pop_font."
      (input-begin ,context)
      ,@body
      (input-end ,context)))
+
+(defmacro with-styles (context styles &body body)
+  "A generic style-setting macro unifying WITH-STYLE-ITEM, WITH-STYLE-COLOR* and WITH-STYLE-FONT.
+STYLES expected to be a list of type (one of :ITEM, :COLOR or :FONT), offset and value to set."
+  (if styles
+      (let ((style (first styles)))
+        (destructuring-bind (type offset value) style
+          (ecase type
+            (:item
+             `(with-style-item ,context ,offset ,value
+                (with-styles ,context ,(rest styles)
+                  ,@body)))
+            (:color
+             `(with-style-color* ,context ,offset ,value
+                (with-styles ,context ,(rest styles)
+                  ,@body)))
+            (:font
+             `(with-style-font ,context ,value
+                (with-styles ,context ,(rest styles)
+                  ,@body))))))
+      `(progn ,@body)))
+
