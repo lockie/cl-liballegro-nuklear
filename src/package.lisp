@@ -487,7 +487,9 @@
    #:with-style-item
    #:with-style-items
    #:with-style-color
+   #:with-style-color*
    #:with-style-colors
+   #:with-style-colors*
    #:with-style-font
    #:with-input
    ;; Offsets

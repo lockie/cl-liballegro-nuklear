@@ -58,6 +58,14 @@ then executes BODY, then calls nk_style_pop_color."
      ,@body
      (style-pop-color ,context)))
 
+(defmacro with-style-color* (context offset color &body body)
+  "Calls nk_style_push_color with CONTEXT, OFFSET and COLOR arguments,
+then executes BODY, then calls nk_style_pop_color."
+  `(progn
+     (style-push-color ,context (cffi:inc-pointer ,context ,offset) ,color)
+     ,@body
+     (style-pop-color ,context)))
+
 (defmacro with-style-colors (context colors &body body)
   "Use this instead of chain calling WITH-STYLE-COLOR."
   (if colors
@@ -65,6 +73,16 @@ then executes BODY, then calls nk_style_pop_color."
         (destructuring-bind (offset (&key r g b a)) color
           `(with-style-color ,context ,offset (:r ,r :g ,g :b ,b :a ,a)
              (with-style-colors ,context ,(rest colors)
+               ,@body))))
+      `(progn ,@body)))
+
+(defmacro with-style-colors* (context colors &body body)
+  "Use this instead of chain calling WITH-STYLE-COLOR*."
+  (if colors
+      (let ((color (first colors)))
+        (destructuring-bind (offset color-value) color
+          `(with-style-color* ,context ,offset ,color-value
+             (with-style-colors* ,context ,(rest colors)
                ,@body))))
       `(progn ,@body)))
 
