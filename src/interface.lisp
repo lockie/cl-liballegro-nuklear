@@ -54,6 +54,16 @@
   (let ((hash (string (gensym "nk-tree-hash"))))
     `(tree-push-hashed ,ctx ,type ,title ,state ,hash ,(length hash) 0)))
 
+(cffi:defcfun ("nk_rect" rect) (:struct rect)
+  (x :float)
+  (y :float)
+  (w :float)
+  (h :float))
+
+(cffi:defcfun ("nk_image" image) :void
+  (arg0 :pointer)
+  (arg1 (:struct image)))
+
 
 
 ;;;SWIG wrapper code starts here

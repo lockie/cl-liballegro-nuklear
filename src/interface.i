@@ -52,6 +52,16 @@
 (defmacro tree-push (ctx type title state)
   (let ((hash (string (gensym "nk-tree-hash"))))
     `(tree-push-hashed ,ctx ,type ,title ,state ,hash ,(length hash) 0)))
+
+(cffi:defcfun ("nk_rect" rect) (:struct rect)
+  (x :float)
+  (y :float)
+  (w :float)
+  (h :float))
+
+(cffi:defcfun ("nk_image" image) :void
+  (arg0 :pointer)
+  (arg1 (:struct image)))
 %}
 
 typedef unsigned char nk_byte;
@@ -391,7 +401,6 @@ void nk_label(struct nk_context*, const char*, nk_flags align);
 void nk_label_colored(struct nk_context*, const char*, nk_flags align, struct nk_color);
 void nk_label_wrap(struct nk_context*, const char*);
 void nk_label_colored_wrap(struct nk_context*, const char*, struct nk_color);
-void nk_image(struct nk_context*, struct nk_image);
 void nk_image_color(struct nk_context*, struct nk_image, struct nk_color);
 // Button
 int nk_button_text(struct nk_context*, const char *title, int len);
