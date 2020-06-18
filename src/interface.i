@@ -719,7 +719,7 @@ struct nk_style_item nk_style_item_hide(void);
 // Allegro backend
 struct nk_context*     nk_allegro5_init(NkAllegro5Font *font, ALLEGRO_DISPLAY *dsp,
                                   unsigned int width, unsigned int height);
-void                   nk_allegro5_handle_event(ALLEGRO_EVENT *ev);
+int                    nk_allegro5_handle_event(ALLEGRO_EVENT *ev);
 void                   nk_allegro5_shutdown(void);
 void                   nk_allegro5_render(void);
 struct nk_image*       nk_allegro5_create_image(const char* file_name);

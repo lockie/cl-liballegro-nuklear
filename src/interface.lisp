@@ -2356,7 +2356,7 @@
   (width :unsigned-int)
   (height :unsigned-int))
 
-(cffi:defcfun ("nk_allegro5_handle_event" #.(swig-lispify "allegro_handle_event" 'function)) :void
+(cffi:defcfun ("nk_allegro5_handle_event" #.(swig-lispify "allegro_handle_event" 'function)) :int
   (ev :pointer))
 
 (cffi:defcfun ("nk_allegro5_shutdown" #.(swig-lispify "allegro_shutdown" 'function)) :void)
