@@ -82,7 +82,7 @@ Related projects
 
 Contributing
 ------------
-Merge requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Merge requests are welcome. For major changes, please [open an issue](https://gitlab.com/lockie/cl-liballegro-nuklear/-/issues/new) first to discuss what you would like to change.
 
 License
 -------
