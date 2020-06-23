@@ -70,11 +70,6 @@ static struct nk_allegro5 {
 
 NK_API struct nk_image* nk_allegro5_create_image(const char* file_name)
 {
-    if (!al_init_image_addon()) {
-        fprintf(stdout, "Unable to initialize required allegro5 image addon\n");
-        exit(1);
-    }
-
     ALLEGRO_BITMAP* bitmap = al_load_bitmap(file_name);
     if (bitmap == NULL) {
         fprintf(stdout, "Unable to load image file: %s\n", file_name);
@@ -116,18 +111,6 @@ nk_allegro5_font_get_text_width(nk_handle handle, float height, const char *text
 NK_API NkAllegro5Font*
 nk_allegro5_font_create_from_file(const char *file_name, int font_size, int flags)
 {
-    if (!al_init_image_addon()) {
-        fprintf(stdout, "Unable to initialize required allegro5 image addon\n");
-        exit(1);
-    }
-    if (!al_init_font_addon()) {
-        fprintf(stdout, "Unable to initialize required allegro5 font addon\n");
-        exit(1);
-    }
-    if (!al_init_ttf_addon()) {
-        fprintf(stdout, "Unable to initialize required allegro5 TTF font addon\n");
-        exit(1);
-    }
     NkAllegro5Font *font = (NkAllegro5Font*)calloc(1, sizeof(NkAllegro5Font));
 
     font->font = al_load_font(file_name, font_size, flags);
@@ -465,11 +448,6 @@ NK_API struct nk_context*
 nk_allegro5_init(NkAllegro5Font *allegro5font, ALLEGRO_DISPLAY *dsp,
     unsigned int width, unsigned int height)
 {
-    if (!al_init_primitives_addon()) {
-        fprintf(stdout, "Unable to initialize required allegro5 primitives addon\n");
-        exit(1);
-    }
-
     struct nk_user_font *font = &allegro5font->nk;
 
     allegro5.dsp = dsp;

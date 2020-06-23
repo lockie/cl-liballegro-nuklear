@@ -231,7 +231,11 @@
 
 (cffi:defcallback main :int ((argc :int) (argv :pointer))
   (declare (ignore argc argv))
-  (unless (al:init)
+  (unless (and (al:init)
+               (al:init-primitives-addon)
+               (al:init-image-addon)
+               (or (al:init-font-addon) t)
+               (al:init-ttf-addon))
     (error "failed to initialize allegro5!"))
   (al:install-mouse)
   (al:install-keyboard)
