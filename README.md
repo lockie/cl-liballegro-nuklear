@@ -31,7 +31,9 @@ Usage
 (ql:quickload '(:cl-liballegro :cl-liballegro-nuklear :float-features))
 
 (cffi:defcallback main :int ((argc :int) (argv :pointer))
-  (al:init) (al:install-mouse)
+  (al:init) (al:init-primitives-addon) (al:init-image-addon)
+  (al:init-font-addon) (al:init-ttf-addon)
+  (al:install-mouse)
   (let ((display (al:create-display 800 600))
         (event-queue (al:create-event-queue)))
     (al:register-event-source event-queue (al:get-display-event-source display))
