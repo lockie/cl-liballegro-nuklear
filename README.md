@@ -2,7 +2,7 @@ cl-liballegro-nuklear
 ---------------------
 This is [CFFI](https://common-lisp.net/project/cffi) wrapper for the [Nuklear](https://github.com/Immediate-Mode-UI/Nuklear) IM GUI library with [liballegro](https://liballeg.org) backend, to be used with [cl-liballegro](https://github.com/resttime/cl-liballegro).
 
-Nuklear is minimal immediate-mode graphical user interface toolkit. To use it alongside liballegro, you have to use [some amount of glue code](https://github.com/Immediate-Mode-UI/Nuklear/blob/master/demo/allegro5/nuklear_allegro5.h). This library brings both Nuklear itself and that glue code to Common Lisp, so you can just plug it in and have some nice minimal GUI in your [cl-liballegro](https://github.com/resttime/cl-liballegro)-powered application.
+Nuklear is minimal immediate-mode graphical user interface toolkit. To use it alongside liballegro, you have to write [some amount of glue code](https://github.com/Immediate-Mode-UI/Nuklear/blob/master/demo/allegro5/nuklear_allegro5.h). This library brings both Nuklear itself and that glue code to Common Lisp, so you can just plug it in and have some nice minimal GUI in your [cl-liballegro](https://github.com/resttime/cl-liballegro)-powered application.
 
 Screenshots
 -----------
