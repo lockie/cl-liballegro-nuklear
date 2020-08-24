@@ -23,6 +23,7 @@ Currently tested to work on following OSes:
 * [SBCL](http://sbcl.org)
 * [CCL](https://ccl.clozure.com)
 * [ECL](https://common-lisp.net/project/ecl/main.html)
+* [ACL](https://franz.com/products/allegro-common-lisp)
 
 Usage
 -----
