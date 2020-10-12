@@ -10,7 +10,7 @@ Screenshots
 
 Installation
 ------------
-Just clone this repository to your [Quicklisp's `local-projects`](http://blog.quicklisp.org/2018/01/the-quicklisp-local-projects-mechanism.html) directory and execute `(ql:quickload :cl-liballegro-nuklear)` in your Lisp.
+Just execute `(ql:quickload :cl-liballegro-nuklear)` in your Lisp.
 
 **Note**: upon loading this library with [asdf](https://common-lisp.net/project/asdf), the corresponding foreign library is automatically built (`allegro_nuklear.dll` on Windows, `liballegro_nuklear.so` on more sane operating systems), so you'll have to have [compiler toolchain](https://gcc.gnu.org) and [liballegro dev files](https://liballeg.org/download.html) installed on your machine.
 
