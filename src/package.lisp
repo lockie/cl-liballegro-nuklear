@@ -315,13 +315,13 @@
    #:style-hide-cursor
    #:style-push-font
    #:style-push-float
-   #:style-push-vec2
+   #:style-push-vec-2
    #:style-push-style-item
    #:style-push-flags
    #:style-push-color
    #:style-pop-font
    #:style-pop-float
-   #:style-pop-vec2
+   #:style-pop-vec-2
    #:style-pop-style-item
    #:style-pop-flags
    #:style-pop-color
@@ -388,9 +388,9 @@
    ;; Math
    #:murmur-hash
    #:triangle-from-direction
-   #:vec2i
-   #:vec2v
-   #:vec2iv
+   #:vec-2i
+   #:vec-2v
+   #:vec-2iv
    #:get-null-rect
    #:recti
    #:recta
