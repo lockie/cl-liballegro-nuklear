@@ -94,6 +94,30 @@ then calls nk_style_pop_font."
      ,@body
      (style-pop-font ,context)))
 
+(defmacro with-style-float (context offset value &body body)
+  "Calls nk_style_push_float with CONTEXT, OFFSET and VALUE arguments,
+then executes BODY, then calls nk_style_pop_float."
+  `(progn
+     (style-push-float ,context (cffi:inc-pointer ,context ,offset) ,value)
+     ,@body
+     (style-pop-float ,context)))
+
+(defmacro with-style-vec2 (context offset (&key x y) &body body)
+  "Calls nk_style_push_vec2 with CONTEXT, OFFSET and X, Y arguments,
+then executes BODY, then calls nk_style_pop_vec2."
+  `(progn
+     (style-push-vec-2 ,context (cffi:inc-pointer ,context ,offset) `(x ,,x y ,,y))
+     ,@body
+     (style-pop-vec-2 ,context)))
+
+(defmacro with-style-vec2* (context offset vec &body body)
+  "Calls nk_style_push_vec2 with CONTEXT, OFFSET and VEC arguments,
+then executes BODY, then calls nk_style_pop_vec2."
+  `(progn
+     (style-push-vec-2 ,context (cffi:inc-pointer ,context ,offset) ,vec)
+     ,@body
+     (style-pop-vec-2 ,context)))
+
 (defmacro with-input (context &body body)
   "Calls nk_input_begin with CONTEXT argument, then executes BODY, then calls nk_input_end."
   `(progn
@@ -118,6 +142,14 @@ STYLES expected to be a list of type (one of :ITEM, :COLOR or :FONT), offset and
                   ,@body)))
             (:font
              `(with-style-font ,context ,value
+                (with-styles ,context ,(rest styles)
+                  ,@body)))
+            (:float
+             `(with-style-float ,context ,offset ,value
+                (with-styles ,context ,(rest styles)
+                  ,@body)))
+            (:vec2
+             `(with-style-vec2* ,context ,offset ,value
                 (with-styles ,context ,(rest styles)
                   ,@body))))))
       `(progn ,@body)))
