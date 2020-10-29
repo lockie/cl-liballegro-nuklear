@@ -4,7 +4,7 @@
   (uiop:run-program (format nil "make -f ~a" (component-pathname c)) :output :interactive))
 
 (asdf:defsystem :cl-liballegro-nuklear
-  :version "0.0.1"
+  :version "0.0.2"
   :description "CFFI wrapper for the Nuklear IM GUI library with liballegro backend, to be used with cl-liballegro."
   :author "Andrew Kravchuk <awkravchuk@gmail.com>"
   :license "MIT"
