@@ -1,7 +1,10 @@
 (defclass makefile (asdf:source-file) ())
 (defmethod perform ((o load-op) (c makefile)) t)
 (defmethod perform ((o compile-op) (c makefile))
-  (uiop:run-program (format nil "make -f ~a" (component-pathname c)) :output :interactive))
+  (uiop:run-program (format nil "cd ~a && make"
+                            (uiop:pathname-directory-pathname
+                             (component-pathname c)))
+                    :output :interactive))
 
 (asdf:defsystem :cl-liballegro-nuklear
   :version "0.0.2"

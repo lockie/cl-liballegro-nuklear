@@ -18,6 +18,7 @@ Currently tested to work on following OSes:
 * Windows (using [MinGW64](http://mingw-w64.org/doku.php/download/mingw-builds) and `seh-dynamic` variant of [official liballegro binaries](https://github.com/liballeg/allegro5/releases))
 * MacOS (using [Homebrew version of liballegro](https://formulae.brew.sh/formula/allegro))
 * Linux
+* FreeBSD
 
 ...and on following Lisp compilers:
 * [SBCL](http://sbcl.org)
