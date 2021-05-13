@@ -16,8 +16,8 @@ endif
 
 dir=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
-CFLAGS=`pkg-config --cflags allegro-5 allegro_font-5 allegro_image-5 allegro_primitives-5 allegro_ttf-5`
-LDFLAGS=`pkg-config --libs allegro-5 allegro_font-5 allegro_image-5 allegro_primitives-5 allegro_ttf-5`
+CFLAGS := ${CFLAGS} `pkg-config --cflags allegro-5 allegro_font-5 allegro_image-5 allegro_primitives-5 allegro_ttf-5`
+LDFLAGS := ${LDFLAGS} `pkg-config --libs allegro-5 allegro_font-5 allegro_image-5 allegro_primitives-5 allegro_ttf-5`
 
 all: $(dir)interface.lisp $(dir)offsets.lisp $(dir)$(lib_prefix)allegro_nuklear.$(lib_extension)
 
