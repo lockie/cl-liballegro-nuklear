@@ -5,7 +5,7 @@
                             #+windows "/d" #-windows ""
                             (uiop:pathname-directory-pathname
                              (component-pathname c)))
-                    :output :interactive))
+                    :output t))
 
 (asdf:defsystem :cl-liballegro-nuklear
   :version "0.0.2"
