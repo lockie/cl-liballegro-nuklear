@@ -6,7 +6,7 @@ Nuklear is minimal immediate-mode graphical user interface toolkit. To use it al
 
 Screenshots
 -----------
-![screenshot](screenshot.png)
+![screenshot](https://gitlab.com/lockie/cl-liballegro-nuklear/-/raw/master/screenshot.png)
 
 Installation
 ------------
@@ -74,7 +74,7 @@ Usage
   (al:run-main 0 (cffi:null-pointer) (cffi:callback main)))
 ```
 
-See [example.lisp](src/example.lisp) for more involved example.
+See [example.lisp](https://gitlab.com/lockie/cl-liballegro-nuklear/-/blob/master/src/example.lisp) for more involved example.
 
 **Note**: `nk:prog` is renamed to `nk:prog-` because of obvious `NAME-CONFLICT` error.
 
