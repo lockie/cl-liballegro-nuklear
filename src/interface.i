@@ -80,6 +80,7 @@ struct nk_rect {float x,y,w,h;};
 typedef char nk_glyph[4];
 typedef void* nk_handle;
 struct nk_image {nk_handle handle;unsigned short w,h;unsigned short region[4];};
+struct nk_nine_slice {struct nk_image img; nk_ushort l, t, r, b;};
 struct nk_scroll {nk_uint x, y;};
 
 enum nk_heading         {NK_UP, NK_RIGHT, NK_DOWN, NK_LEFT};
@@ -271,18 +272,20 @@ enum nk_style_cursor {
 
 enum nk_style_item_type {
     NK_STYLE_ITEM_COLOR,
-    NK_STYLE_ITEM_IMAGE
+    NK_STYLE_ITEM_IMAGE,
+    NK_STYLE_ITEM_NINE_SLICE
 };
 
 union nk_style_item_data {
-    struct nk_image image;
     struct nk_color color;
+    struct nk_image image;
+    struct nk_nine_slice slice;
 };
 
 struct nk_style_item {
     enum nk_style_item_type type;
     //union nk_style_item_data data;
-    struct nk_image data;
+    struct nk_nine_slice data;
 };
 
 // Context
@@ -361,6 +364,7 @@ struct nk_vec2 nk_layout_space_to_screen(struct nk_context*, struct nk_vec2);
 struct nk_vec2 nk_layout_space_to_local(struct nk_context*, struct nk_vec2);
 struct nk_rect nk_layout_space_rect_to_screen(struct nk_context*, struct nk_rect);
 struct nk_rect nk_layout_space_rect_to_local(struct nk_context*, struct nk_rect);
+void nk_spacer(struct nk_context*);
 // Groups
 int nk_group_begin(struct nk_context*, const char *title, nk_flags);
 int nk_group_begin_titled(struct nk_context*, const char *name, const char *title, nk_flags);
@@ -634,6 +638,14 @@ int nk_image_is_subimage(const struct nk_image* img);
 struct nk_image nk_subimage_ptr(void*, unsigned short w, unsigned short h, struct nk_rect sub_region);
 struct nk_image nk_subimage_id(int, unsigned short w, unsigned short h, struct nk_rect sub_region);
 struct nk_image nk_subimage_handle(nk_handle, unsigned short w, unsigned short h, struct nk_rect sub_region);
+// 9-Slice
+struct nk_nine_slice nk_nine_slice_handle(nk_handle, unsigned short l, unsigned short t, unsigned short r, unsigned short b);
+struct nk_nine_slice nk_nine_slice_ptr(void*, unsigned short l, unsigned short t, unsigned short r, unsigned short b);
+struct nk_nine_slice nk_nine_slice_id(int, unsigned short l, unsigned short t, unsigned short r, unsigned short b);
+int nk_nine_slice_is_sub9slice(const struct nk_nine_slice* img);
+struct nk_nine_slice nk_sub9slice_ptr(void*, unsigned short w, unsigned short h, struct nk_rect sub_region, unsigned short l, unsigned short t, unsigned short r, unsigned short b);
+struct nk_nine_slice nk_sub9slice_id(int, unsigned short w, unsigned short h, struct nk_rect sub_region, unsigned short l, unsigned short t, unsigned short r, unsigned short b);
+struct nk_nine_slice nk_sub9slice_handle(nk_handle, unsigned short w, unsigned short h, struct nk_rect sub_region, unsigned short l, unsigned short t, unsigned short r, unsigned short b);
 // Math
 nk_hash nk_murmur_hash(const void *key, int len, nk_hash seed);
 void nk_triangle_from_direction(struct nk_vec2 *result, struct nk_rect r, float pad_x, float pad_y, enum nk_heading);
@@ -692,6 +704,7 @@ void nk_fill_arc(struct nk_command_buffer*, float cx, float cy, float radius, fl
 void nk_fill_triangle(struct nk_command_buffer*, float x0, float y0, float x1, float y1, float x2, float y2, struct nk_color);
 void nk_fill_polygon(struct nk_command_buffer*, float*, int point_count, struct nk_color);
 void nk_draw_image(struct nk_command_buffer*, struct nk_rect, const struct nk_image*, struct nk_color);
+void nk_draw_nine_slice(struct nk_command_buffer*, struct nk_rect, const struct nk_nine_slice*, struct nk_color);
 void nk_draw_text(struct nk_command_buffer*, struct nk_rect, const char *text, int len, const struct nk_user_font*, struct nk_color, struct nk_color);
 void nk_push_scissor(struct nk_command_buffer*, struct nk_rect);
 void nk_push_custom(struct nk_command_buffer*, struct nk_rect, nk_command_custom_callback, nk_handle usr);
@@ -712,8 +725,9 @@ int nk_input_is_key_pressed(const struct nk_input*, enum nk_keys);
 int nk_input_is_key_released(const struct nk_input*, enum nk_keys);
 int nk_input_is_key_down(const struct nk_input*, enum nk_keys);
 // GUI
-struct nk_style_item nk_style_item_image(struct nk_image img);
 struct nk_style_item nk_style_item_color(struct nk_color);
+struct nk_style_item nk_style_item_image(struct nk_image img);
+struct nk_style_item nk_style_item_nine_slice(struct nk_nine_slice slice);
 struct nk_style_item nk_style_item_hide(void);
 
 // Allegro backend

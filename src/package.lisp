@@ -14,6 +14,7 @@
    #:glyph
    #:handle
    #:image
+   #:nine-slice
    #:scroll
    #:heading
    #:button-behavior
@@ -112,6 +113,7 @@
    #:layout-space-to-local
    #:layout-space-rect-to-screen
    #:layout-space-rect-to-local
+   #:spacer
    ;; Groups
    #:group-begin
    #:group-begin-titled
@@ -121,6 +123,14 @@
    #:group-scrolled-end
    #:group-get-scroll
    #:group-set-scroll
+   ;; 9-Slice
+   #:nine-slice-handle
+   #:nine-slice-ptr
+   #:nine-slice-id
+   #:nine-slice-is-sub9slice
+   #:sub9slice-ptr
+   #:sub9slice-id
+   #:sub9slice-handle
    ;; Tree
    #:tree-push
    #:tree-push-hashed
@@ -443,6 +453,7 @@
    #:fill-triangle
    #:fill-polygon
    #:draw-image
+   #:draw-nine-slice
    #:draw-text
    #:push-scissor
    #:push-custom
@@ -464,6 +475,7 @@
    #:input-is-key-down
    ;; GUI
    #:style-item-image
+   #:style-item-nine-slice
    #:style-item-color
    #:style-item-hide
    ;; Allegro backend

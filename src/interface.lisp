@@ -146,6 +146,13 @@
 	(#.(swig-lispify "h" 'slotname) :unsigned-short)
 	(#.(swig-lispify "region" 'slotname) :uint64))
 
+(cffi:defcstruct (#.(swig-lispify "nine_slice" 'classname) :class #.(swig-lispify "nine_slice" 'classname))
+	(#.(swig-lispify "img" 'slotname) (:struct #.(swig-lispify "image" 'classname)))
+	(#.(swig-lispify "l" 'slotname) :pointer)
+	(#.(swig-lispify "t" 'slotname) :pointer)
+	(#.(swig-lispify "r" 'slotname) :pointer)
+	(#.(swig-lispify "b" 'slotname) :pointer))
+
 (cffi:defcstruct (#.(swig-lispify "scroll" 'classname) :class #.(swig-lispify "scroll" 'classname))
 	(#.(swig-lispify "x" 'slotname) :unsigned-int)
 	(#.(swig-lispify "y" 'slotname) :unsigned-int))
@@ -357,15 +364,17 @@
 
 (cffi:defcenum #.(swig-lispify "style_item_type" 'enumname)
 	#.(swig-lispify "STYLE_ITEM_COLOR" 'enumvalue :keyword)
-	#.(swig-lispify "STYLE_ITEM_IMAGE" 'enumvalue :keyword))
+	#.(swig-lispify "STYLE_ITEM_IMAGE" 'enumvalue :keyword)
+	#.(swig-lispify "STYLE_ITEM_NINE_SLICE" 'enumvalue :keyword))
 
 (cffi:defcunion #.(swig-lispify "style_item_data" 'classname)
+	(#.(swig-lispify "color" 'slotname) (:struct #.(swig-lispify "color" 'classname)))
 	(#.(swig-lispify "image" 'slotname) (:struct #.(swig-lispify "image" 'classname)))
-	(#.(swig-lispify "color" 'slotname) (:struct #.(swig-lispify "color" 'classname))))
+	(#.(swig-lispify "slice" 'slotname) (:struct #.(swig-lispify "nine_slice" 'classname))))
 
 (cffi:defcstruct (#.(swig-lispify "style_item" 'classname) :class #.(swig-lispify "style_item" 'classname))
 	(#.(swig-lispify "type" 'slotname) #.(swig-lispify "style_item_type" 'enumname))
-	(#.(swig-lispify "data" 'slotname) (:struct #.(swig-lispify "image" 'classname))))
+	(#.(swig-lispify "data" 'slotname) (:struct #.(swig-lispify "nine_slice" 'classname))))
 
 (cffi:defcfun ("nk_init_default" #.(swig-lispify "init_default" 'function)) :int
   (arg0 :pointer)
@@ -663,6 +672,9 @@
 (cffi:defcfun ("nk_layout_space_rect_to_local" #.(swig-lispify "layout_space_rect_to_local" 'function)) (:struct #.(swig-lispify "rect" 'classname))
   (arg0 :pointer)
   (arg1 (:struct #.(swig-lispify "rect" 'classname))))
+
+(cffi:defcfun ("nk_spacer" #.(swig-lispify "spacer" 'function)) :void
+  (arg0 :pointer))
 
 (cffi:defcfun ("nk_group_begin" #.(swig-lispify "group_begin" 'function)) :int
   (arg0 :pointer)
@@ -1980,6 +1992,60 @@
   (h :unsigned-short)
   (sub_region (:struct #.(swig-lispify "rect" 'classname))))
 
+(cffi:defcfun ("nk_nine_slice_handle" #.(swig-lispify "nine_slice_handle" 'function)) (:struct #.(swig-lispify "nine_slice" 'classname))
+  (arg0 :pointer)
+  (l :unsigned-short)
+  (t_arg2 :unsigned-short)
+  (r :unsigned-short)
+  (b :unsigned-short))
+
+(cffi:defcfun ("nk_nine_slice_ptr" #.(swig-lispify "nine_slice_ptr" 'function)) (:struct #.(swig-lispify "nine_slice" 'classname))
+  (arg0 :pointer)
+  (l :unsigned-short)
+  (t_arg2 :unsigned-short)
+  (r :unsigned-short)
+  (b :unsigned-short))
+
+(cffi:defcfun ("nk_nine_slice_id" #.(swig-lispify "nine_slice_id" 'function)) (:struct #.(swig-lispify "nine_slice" 'classname))
+  (arg0 :int)
+  (l :unsigned-short)
+  (t_arg2 :unsigned-short)
+  (r :unsigned-short)
+  (b :unsigned-short))
+
+(cffi:defcfun ("nk_nine_slice_is_sub9slice" #.(swig-lispify "nine_slice_is_sub9slice" 'function)) :int
+  (img :pointer))
+
+(cffi:defcfun ("nk_sub9slice_ptr" #.(swig-lispify "sub9slice_ptr" 'function)) (:struct #.(swig-lispify "nine_slice" 'classname))
+  (arg0 :pointer)
+  (w :unsigned-short)
+  (h :unsigned-short)
+  (sub_region (:struct #.(swig-lispify "rect" 'classname)))
+  (l :unsigned-short)
+  (t_arg5 :unsigned-short)
+  (r :unsigned-short)
+  (b :unsigned-short))
+
+(cffi:defcfun ("nk_sub9slice_id" #.(swig-lispify "sub9slice_id" 'function)) (:struct #.(swig-lispify "nine_slice" 'classname))
+  (arg0 :int)
+  (w :unsigned-short)
+  (h :unsigned-short)
+  (sub_region (:struct #.(swig-lispify "rect" 'classname)))
+  (l :unsigned-short)
+  (t_arg5 :unsigned-short)
+  (r :unsigned-short)
+  (b :unsigned-short))
+
+(cffi:defcfun ("nk_sub9slice_handle" #.(swig-lispify "sub9slice_handle" 'function)) (:struct #.(swig-lispify "nine_slice" 'classname))
+  (arg0 :pointer)
+  (w :unsigned-short)
+  (h :unsigned-short)
+  (sub_region (:struct #.(swig-lispify "rect" 'classname)))
+  (l :unsigned-short)
+  (t_arg5 :unsigned-short)
+  (r :unsigned-short)
+  (b :unsigned-short))
+
 (cffi:defcfun ("nk_murmur_hash" #.(swig-lispify "murmur_hash" 'function)) :unsigned-int
   (key :pointer)
   (len :int)
@@ -2256,6 +2322,12 @@
   (arg2 :pointer)
   (arg3 (:struct #.(swig-lispify "color" 'classname))))
 
+(cffi:defcfun ("nk_draw_nine_slice" #.(swig-lispify "draw_nine_slice" 'function)) :void
+  (arg0 :pointer)
+  (arg1 (:struct #.(swig-lispify "rect" 'classname)))
+  (arg2 :pointer)
+  (arg3 (:struct #.(swig-lispify "color" 'classname))))
+
 (cffi:defcfun ("nk_draw_text" #.(swig-lispify "draw_text" 'function)) :void
   (arg0 :pointer)
   (arg1 (:struct #.(swig-lispify "rect" 'classname)))
@@ -2342,11 +2414,14 @@
   (arg0 :pointer)
   (arg1 #.(swig-lispify "keys" 'enumname)))
 
+(cffi:defcfun ("nk_style_item_color" #.(swig-lispify "style_item_color" 'function)) (:struct #.(swig-lispify "style_item" 'classname))
+  (arg0 (:struct #.(swig-lispify "color" 'classname))))
+
 (cffi:defcfun ("nk_style_item_image" #.(swig-lispify "style_item_image" 'function)) (:struct #.(swig-lispify "style_item" 'classname))
   (img (:struct #.(swig-lispify "image" 'classname))))
 
-(cffi:defcfun ("nk_style_item_color" #.(swig-lispify "style_item_color" 'function)) (:struct #.(swig-lispify "style_item" 'classname))
-  (arg0 (:struct #.(swig-lispify "color" 'classname))))
+(cffi:defcfun ("nk_style_item_nine_slice" #.(swig-lispify "style_item_nine_slice" 'function)) (:struct #.(swig-lispify "style_item" 'classname))
+  (slice (:struct #.(swig-lispify "nine_slice" 'classname))))
 
 (cffi:defcfun ("nk_style_item_hide" #.(swig-lispify "style_item_hide" 'function)) (:struct #.(swig-lispify "style_item" 'classname)))
 
