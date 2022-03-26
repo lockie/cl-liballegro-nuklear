@@ -55,7 +55,7 @@ Usage
                     :do (nk:allegro-handle-event ev)
                         (setf get-event (al:get-next-event event-queue ev)))
               (nk:input-end ctx)
-              (unless (zerop (nk:begin ctx "Demo" '(:x 50f0 :y 50f0 :w 100f0 :h 100f0) 0))
+              (unless (zerop (nk:begin ctx "Demo" '(nk::x 50f0 nk::y 50f0 nk::w 100f0 nk::h 100f0) 0))
                 (nk:layout-row-static ctx 30f0 80 1)
                 (unless (zerop (nk:button-label ctx "button"))
                   (format t "button pressed~%"))
