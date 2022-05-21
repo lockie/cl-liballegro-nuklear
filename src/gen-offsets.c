@@ -12,7 +12,8 @@
 const char* kebabize(const char* string)
 {
     char* result = strdup(string);
-    for(size_t i = 0; i < strlen(string); i++)
+    size_t i;
+    for(i = 0; i < strlen(string); i++)
     {
         if(string[i] == '_')
             result[i] = '-';
@@ -618,7 +619,7 @@ int main(void)
     DEFOFFSET(style, nk_style, combo, nk_style_combo, border);
     DEFOFFSET(style, nk_style, combo, nk_style_combo, rounding);
     DEFOFFSET(style, nk_style, combo, nk_style_combo, content_padding);
-    //DEFOFFSET(style, nk_style, combo, nk_style_combo, button_padding);
+    /*DEFOFFSET(style, nk_style, combo, nk_style_combo, button_padding);*/
     DEFOFFSET(style, nk_style, combo, nk_style_combo, spacing);
 
     DEFOFFSET4(style, nk_style, window, nk_style_window, header, nk_style_window_header, normal);
