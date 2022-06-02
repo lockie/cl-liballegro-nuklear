@@ -15,7 +15,7 @@ Just execute `(ql:quickload :cl-liballegro-nuklear)` in your Lisp.
 **Note**: upon loading this library with [asdf](https://common-lisp.net/project/asdf), the corresponding foreign library is automatically built (`allegro_nuklear.dll` on Windows, `liballegro_nuklear.so` on more sane operating systems), so you'll have to have [compiler toolchain](https://gcc.gnu.org) and [liballegro dev files](https://liballeg.org/download.html) installed on your machine.
 
 Currently tested to work on following OSes:
-* Windows (using [MinGW64](http://mingw-w64.org/doku.php/download/mingw-builds) and `seh-dynamic` variant of [official liballegro binaries](https://github.com/liballeg/allegro5/releases))
+* Windows (using [MinGW64](https://mingw-w64.org/downloads/#mingw-builds) and `seh-dynamic` variant of [official liballegro binaries](https://github.com/liballeg/allegro5/releases))
 * MacOS (using [Homebrew version of liballegro](https://formulae.brew.sh/formula/allegro))
 * Linux
 * FreeBSD
@@ -78,7 +78,7 @@ See [example.lisp](https://gitlab.com/lockie/cl-liballegro-nuklear/-/blob/master
 
 **Note**: `nk:prog` is renamed to `nk:prog-` because of obvious `NAME-CONFLICT` error.
 
-There's also lispy interface making library interaction more idiomatic of CL. See docstrings in [lispy.lisp](src/lispy.lisp) for documentation.
+There's also lispy interface making library interaction more idiomatic of CL. See docstrings in [lispy.lisp](https://gitlab.com/lockie/cl-liballegro-nuklear/-/blob/master/src/lispy.lisp) for documentation.
 
 Related projects
 ----------------
