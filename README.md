@@ -37,37 +37,36 @@ Usage
   (al:init-font-addon) (al:init-ttf-addon)
   (al:install-mouse)
   (let ((display (al:create-display 800 600))
-        (event-queue (al:create-event-queue)))
-    (al:register-event-source event-queue (al:get-display-event-source display))
-    (al:register-event-source event-queue (al:get-mouse-event-source))
+        (queue (al:create-event-queue)))
+    (al:register-event-source queue (al:get-display-event-source display))
+    (al:register-event-source queue (al:get-mouse-event-source))
     (cffi:with-foreign-object (ev '(:union al:event))
-      (loop
-        :with font := (nk:allegro-font-create-from-file "Roboto-Regular.ttf" 12 0)
-        :with ctx := (nk:allegro-init font display 800 600)
-        :do (let ((get-event (al:wait-for-event-timed event-queue ev 0.06)))
-              (when (and get-event
-                         (eq
-                          (cffi:foreign-slot-value ev '(:union al:event) 'al::type)
-                          :display-close))
+      (loop :with font := (nk:allegro-font-create-from-file
+                           "Roboto-Regular.ttf" 12 0)
+            :with ctx := (nk:allegro-init font display 800 600)
+        :do (let ((get-event (al:wait-for-event-timed queue ev 0.06)))
+              (when (and get-event (eq (cffi:foreign-slot-value
+                                        ev '(:union al:event) 'al::type)
+                                       :display-close))
                 (loop-finish))
               (nk:input-begin ctx)
               (loop :while get-event
                     :do (nk:allegro-handle-event ev)
-                        (setf get-event (al:get-next-event event-queue ev)))
+                        (setf get-event (al:get-next-event queue ev)))
               (nk:input-end ctx)
-              (unless (zerop (nk:begin ctx "Demo" '(nk::x 50f0 nk::y 50f0 nk::w 100f0 nk::h 100f0) 0))
+              (unless (zerop (nk:begin ctx "Demo"
+                                       '(nk::w 100f0 nk::h 100f0) 0))
                 (nk:layout-row-static ctx 30f0 80 1)
                 (unless (zerop (nk:button-label ctx "button"))
                   (format t "button pressed~%"))
                 (nk:end ctx)
                 (nk:allegro-render)
                 (al:flip-display)))
-        :finally
-           (nk:allegro-font-del font)
-           (nk:allegro-shutdown)
-           (al:destroy-display display)
-           (al:destroy-event-queue event-queue)
-           (return 0)))))
+        :finally (nk:allegro-font-del font)
+                 (nk:allegro-shutdown)
+                 (al:destroy-display display)
+                 (al:destroy-event-queue queue)
+                 (return 0)))))
 
 (float-features:with-float-traps-masked
     (:divide-by-zero :invalid :inexact :overflow :underflow)
