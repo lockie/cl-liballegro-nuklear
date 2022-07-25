@@ -40,6 +40,6 @@ $(dir)$(lib_prefix)allegro_nuklear.$(lib_extension): $(dir)nuklear.c $(dir)nukle
 	$(CC) $(CFLAGS) $< -std=c89 -O2 -pipe -fPIC -shared $(LDFLAGS) -o $@
 
 clean:
-	rm -rf interface.lisp offsets.lisp *.dll *.dylib *.so *.exe gen-offsets core
+	$(RM) interface.lisp offsets.lisp *.dll *.dylib *.so *.exe gen-offsets core
 
 .PHONY: clean

@@ -21,7 +21,7 @@ it returns non-zero value, then calls nk_end."
 
 (defmacro with-button-label (context title &body body)
   "Calls nk_button_label with CONTEXT and TITLE arguments and executes BODY when
-it returns non-zero value (e.g. when the button is pressed)."
+it returns non-zero value (i.e. when the button is pressed)."
   `(unless (zerop (the fixnum (button-label ,context ,title)))
      ,@body))
 
