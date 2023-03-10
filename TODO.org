@@ -1,3 +1,2 @@
 *** TODO add more lispish helper macroses, like defpanel from here: https://github.com/borodust/bodge-ui-window/blob/master/examples/basic-example.org
-*** TODO calloc & "strcpy" in allegro_nuklear.h (https://github.com/Immediate-Mode-UI/Nuklear/pull/550/)
 *** TODO use dynamic-extent for push-* macros?
