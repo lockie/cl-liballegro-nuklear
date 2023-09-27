@@ -80,7 +80,7 @@ struct nk_rect {float x,y,w,h;};
 typedef char nk_glyph[4];
 typedef void* nk_handle;
 struct nk_image {nk_handle handle;unsigned short w,h;unsigned short region[4];};
-struct nk_nine_slice {struct nk_image img; nk_ushort l, t, r, b;};
+struct nk_nine_slice {struct nk_image img; unsigned short l, t, r, b;};
 struct nk_scroll {nk_uint x, y;};
 
 enum nk_heading         {NK_UP, NK_RIGHT, NK_DOWN, NK_LEFT};

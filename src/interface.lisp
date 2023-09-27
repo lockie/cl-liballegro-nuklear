@@ -148,10 +148,10 @@
 
 (cffi:defcstruct (#.(swig-lispify "nine_slice" 'classname) :class #.(swig-lispify "nine_slice" 'classname))
 	(#.(swig-lispify "img" 'slotname) (:struct #.(swig-lispify "image" 'classname)))
-	(#.(swig-lispify "l" 'slotname) :pointer)
-	(#.(swig-lispify "t" 'slotname) :pointer)
-	(#.(swig-lispify "r" 'slotname) :pointer)
-	(#.(swig-lispify "b" 'slotname) :pointer))
+	(#.(swig-lispify "l" 'slotname) :unsigned-short)
+	(#.(swig-lispify "t" 'slotname) :unsigned-short)
+	(#.(swig-lispify "r" 'slotname) :unsigned-short)
+	(#.(swig-lispify "b" 'slotname) :unsigned-short))
 
 (cffi:defcstruct (#.(swig-lispify "scroll" 'classname) :class #.(swig-lispify "scroll" 'classname))
 	(#.(swig-lispify "x" 'slotname) :unsigned-int)
