@@ -10,6 +10,17 @@
   `(let ((,var `(x ,(float ,x) y ,(float ,y) w ,(float ,w) h ,(float ,h))))
      ,@body))
 
+(defmacro with-rects (vars &body body)
+  "Executes BODY with the variables in VARS bound to Nuklear rect structs with
+fileds X, Y, W, H recieved from the corresponding keyword arguments in each var."
+  `(let (,@(mapcar
+             #'(lambda (v)
+                 (destructuring-bind (name (&key x y w h)) v
+                   `(,name `(x ,(float ,x) y ,(float ,y)
+                               w ,(float ,w) h ,(float ,h)))))
+             vars))
+     ,@body))
+
 (defmacro with-window (context title bounds flags &body body)
   "Calls nk_begin with CONTEXT, TITLE, BOUNDS and FLAGS arguments, executes BODY when
 it returns non-zero value, then calls nk_end."

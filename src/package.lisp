@@ -493,6 +493,7 @@
    ;; Lispy interface
    #:with-color
    #:with-rect
+   #:with-rects
    #:with-window
    #:with-button-label
    #:with-layout-space
