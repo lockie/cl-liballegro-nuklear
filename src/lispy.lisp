@@ -36,6 +36,17 @@ it returns non-zero value (i.e. when the button is pressed)."
   `(unless (zerop (the fixnum (button-label ,context ,title)))
      ,@body))
 
+(defmacro with-button-label* (context title keys &body body)
+  "The same as WITH-BUTTON-LABEL, but the button is also triggered by keyboard
+keys denoted by keywords supplied in KEYS."
+  (let ((keyboard-state (gensym "KEYBOARD-STATE")))
+    `(when (or (plusp (the fixnum (button-label ,context ,title)))
+               (al:with-current-keyboard-state ,keyboard-state
+                 (or ,@(mapcar
+                        #'(lambda (k) `(al:key-down ,keyboard-state ,k))
+                        keys))))
+       ,@body)))
+
 (defmacro with-layout-space (context format height widget-count &body body)
   "Calls nk_layout_space_begin with CONTEXT, FORMAT, HEIGHT and WIDGET-COUNT arguments,
 then executes BODY, then calls nk_layout_space_end."

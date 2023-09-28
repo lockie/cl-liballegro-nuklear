@@ -496,6 +496,7 @@
    #:with-rects
    #:with-window
    #:with-button-label
+   #:with-button-label*
    #:with-layout-space
    #:with-style-item
    #:with-style-items

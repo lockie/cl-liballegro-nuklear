@@ -12,7 +12,7 @@
   :description "CFFI wrapper for the Nuklear IM GUI library with liballegro backend, to be used with cl-liballegro."
   :author "Andrew Kravchuk <awkravchuk@gmail.com>"
   :license "MIT"
-  :depends-on (:cffi :cffi-libffi :trivial-features)
+  :depends-on (:cffi :cffi-libffi :cl-liballegro :trivial-features)
   :pathname "src"
   :serial t
   :components ((:makefile "Makefile")
