@@ -5,12 +5,14 @@
 %insert("lisphead") %{
 (in-package :cl-liballegro-nuklear)
 
-(defun flags (type &rest flags)
-  (let ((flag-type (intern (string-upcase type) :nk)))
-    (apply #'logior
-      (mapcar
-        #'(lambda (flag) (cffi:foreign-enum-value flag-type flag))
-        flags))))
+(defmacro flags (type &rest flags)
+  (let* ((flag-type (intern (string-upcase type) :nk))
+         (value (apply #'logior
+                       (mapcar
+                        #'(lambda (flag)
+                            (cffi:foreign-enum-value flag-type flag))
+                        flags))))
+    value))
 
 (cffi:defcstruct color
   (r :unsigned-char)

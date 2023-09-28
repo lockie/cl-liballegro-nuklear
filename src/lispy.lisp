@@ -14,10 +14,10 @@
   "Calls nk_begin with CONTEXT, TITLE, BOUNDS and FLAGS arguments, executes BODY when
 it returns non-zero value, then calls nk_end."
   `(progn
-     (let ((panel-flags (apply 'flags :panel-flags ,flags)))
-       (unless (zerop (the fixnum (begin ,context ,title ,bounds panel-flags)))
-         ,@body)
-       (end ,context))))
+     (unless (zerop (the fixnum (begin ,context ,title ,bounds
+                                       (flags :panel-flags ,@flags))))
+       ,@body)
+     (end ,context)))
 
 (defmacro with-button-label (context title &body body)
   "Calls nk_button_label with CONTEXT and TITLE arguments and executes BODY when
