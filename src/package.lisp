@@ -508,6 +508,7 @@
    #:with-input
    #:with-styles
    #:style-item-image*
+   #:vec-2*
    ;; Offsets
    #:+style-text-color+
    #:+style-text-padding+

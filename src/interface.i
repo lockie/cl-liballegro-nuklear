@@ -61,6 +61,10 @@
   (w :float)
   (h :float))
 
+(cffi:defcfun ("nk_vec2" vec-2) (:struct vec-2)
+ (x :float)
+ (y :float))
+
 (cffi:defcfun ("nk_image" image) :void
   (arg0 :pointer)
   (arg1 (:struct image)))

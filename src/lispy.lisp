@@ -192,3 +192,6 @@ STYLES expected to be a list of type (one of :ITEM, :COLOR or :FONT), offset and
 (defmacro style-item-image* (image)
   "IMAGE is the result of call to ALLEGRO-CREATE-IMAGE"
   ``(data (img ,,image) type :+style-item-image+))
+
+(defmacro vec-2* (x y)
+  ``(x ,,(float x) y ,,(float y)))
