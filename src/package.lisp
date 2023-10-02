@@ -507,6 +507,7 @@
    #:with-style-font
    #:with-input
    #:with-styles
+   #:style-item-image*
    ;; Offsets
    #:+style-text-color+
    #:+style-text-padding+

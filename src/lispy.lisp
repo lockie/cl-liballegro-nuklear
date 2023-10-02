@@ -187,3 +187,8 @@ STYLES expected to be a list of type (one of :ITEM, :COLOR or :FONT), offset and
                   ,@body))))))
       `(progn ,@body)))
 
+;;; Alternative ctors
+
+(defmacro style-item-image* (image)
+  "IMAGE is the result of call to ALLEGRO-CREATE-IMAGE"
+  ``(data (img ,,image) type :+style-item-image+))
