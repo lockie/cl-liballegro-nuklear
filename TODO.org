@@ -1,2 +1,2 @@
 *** TODO add more lispish helper macroses, like defpanel from here: https://github.com/borodust/bodge-ui-window/blob/master/examples/basic-example.org
-*** TODO use dynamic-extent for push-* macros?
+*** DONE use dynamic-extent for push-* macros?

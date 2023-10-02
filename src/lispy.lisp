@@ -3,11 +3,13 @@
 (defmacro with-color ((var &key r g b a) &body body)
   "Executes BODY with the variable VAR bound to Nuklear color struct with fields R, G, B, A."
   `(let ((,var `(r ,,r g ,,g b ,,b a ,,a)))
+     (declare (dynamic-extent ,var))
      ,@body))
 
 (defmacro with-rect ((var &key x y w h) &body body)
   "Executes BODY with the variable VAR bound to Nuklear rect struct with fields X, Y, W, H."
   `(let ((,var `(x ,(float ,x) y ,(float ,y) w ,(float ,w) h ,(float ,h))))
+     (declare (dynamic-extent ,var))
      ,@body))
 
 (defmacro with-rects (vars &body body)
@@ -19,6 +21,7 @@ fileds X, Y, W, H recieved from the corresponding keyword arguments in each var.
                    `(,name `(x ,(float ,x) y ,(float ,y)
                                w ,(float ,w) h ,(float ,h)))))
              vars))
+     (declare (dynamic-extent ,@(mapcar #'car vars)))
      ,@body))
 
 (defmacro with-window (context title bounds flags &body body)
@@ -58,10 +61,13 @@ then executes BODY, then calls nk_layout_space_end."
 (defmacro with-style-item (context offset item &body body)
   "Calls nk_style_push_style_item with CONTEXT, OFFSET and ITEM arguments,
 then executes BODY, then calls nk_style_pop_style_item."
-  `(progn
-     (style-push-style-item ,context (cffi:inc-pointer ,context ,offset) ,item)
-     ,@body
-     (style-pop-style-item ,context)))
+  (let ((item-var (gensym "ITEM")))
+    `(let ((,item-var ,item))
+       (declare (dynamic-extent ,item-var))
+       (style-push-style-item
+        ,context (cffi:inc-pointer ,context ,offset) ,item-var)
+       ,@body
+       (style-pop-style-item ,context))))
 
 (defmacro with-style-items (context items &body body)
   "Use this instead of chain calling WITH-STYLE-ITEM."
@@ -83,10 +89,13 @@ then executes BODY, then calls nk_style_pop_color."
 (defmacro with-style-color* (context offset color &body body)
   "Calls nk_style_push_color with CONTEXT, OFFSET and COLOR arguments,
 then executes BODY, then calls nk_style_pop_color."
-  `(progn
-     (style-push-color ,context (cffi:inc-pointer ,context ,offset) ,color)
-     ,@body
-     (style-pop-color ,context)))
+  (let ((color-var (gensym "COLOR")))
+    `(let ((,color-var ,color))
+       (declare (dynamic-extent ,color-var))
+       (style-push-color
+        ,context (cffi:inc-pointer ,context ,offset) ,color-var)
+       ,@body
+       (style-pop-color ,context))))
 
 (defmacro with-style-colors (context colors &body body)
   "Use this instead of chain calling WITH-STYLE-COLOR."
@@ -135,10 +144,12 @@ then executes BODY, then calls nk_style_pop_vec2."
 (defmacro with-style-vec2* (context offset vec &body body)
   "Calls nk_style_push_vec2 with CONTEXT, OFFSET and VEC arguments,
 then executes BODY, then calls nk_style_pop_vec2."
-  `(progn
-     (style-push-vec-2 ,context (cffi:inc-pointer ,context ,offset) ,vec)
-     ,@body
-     (style-pop-vec-2 ,context)))
+  (let ((vec-var (gensym "VEC")))
+    `(let ((,vec-var ,vec))
+       (declare (dynamic-extent ,vec-var))
+       (style-push-vec-2 ,context (cffi:inc-pointer ,context ,offset) ,vec-var)
+       ,@body
+       (style-pop-vec-2 ,context))))
 
 (defmacro with-input (context &body body)
   "Calls nk_input_begin with CONTEXT argument, then executes BODY, then calls nk_input_end."
