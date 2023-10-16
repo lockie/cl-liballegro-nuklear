@@ -1,6 +1,6 @@
 cl-liballegro-nuklear
 ---------------------
-This is [CFFI](https://common-lisp.net/project/cffi) wrapper for the [Nuklear](https://github.com/Immediate-Mode-UI/Nuklear) IM GUI library with [liballegro](https://liballeg.org) backend, to be used with [cl-liballegro](https://github.com/resttime/cl-liballegro).
+This is [CFFI](https://common-lisp.net/project/cffi) wrapper for the [Nuklear](https://github.com/Immediate-Mode-UI/Nuklear) IM GUI library with [liballegro](https://liballeg.github.io) backend, to be used with [cl-liballegro](https://github.com/resttime/cl-liballegro).
 
 Nuklear is minimal immediate-mode graphical user interface toolkit. To use it alongside liballegro, you have to write [some amount of glue code](https://github.com/Immediate-Mode-UI/Nuklear/blob/master/demo/allegro5/nuklear_allegro5.h). This library brings both Nuklear itself and that glue code to Common Lisp, so you can just plug it in and have some nice minimal GUI in your [cl-liballegro](https://github.com/resttime/cl-liballegro)-powered application.
 
@@ -12,7 +12,7 @@ Installation
 ------------
 Just execute `(ql:quickload :cl-liballegro-nuklear)` in your Lisp.
 
-**Note**: upon loading this library with [asdf](https://common-lisp.net/project/asdf), the corresponding foreign library is automatically built (`allegro_nuklear.dll` on Windows, `liballegro_nuklear.so` on more sane operating systems), so you'll have to have [compiler toolchain](https://gcc.gnu.org) and [liballegro dev files](https://liballeg.org/download.html) installed on your machine.
+**Note**: upon loading this library with [asdf](https://common-lisp.net/project/asdf), the corresponding foreign library is automatically built (`allegro_nuklear.dll` on Windows, `liballegro_nuklear.so` on more sane operating systems), so you'll have to have [compiler toolchain](https://gcc.gnu.org) and [liballegro dev files](https://liballeg.github.io/download.html) installed on your machine.
 
 Currently tested to work on following OSes:
 * Windows (using [MinGW64](https://mingw-w64.org/downloads/#mingw-builds) and `seh-dynamic` variant of [official liballegro binaries](https://github.com/liballeg/allegro5/releases))
