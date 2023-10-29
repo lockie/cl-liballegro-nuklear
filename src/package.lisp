@@ -492,6 +492,7 @@
    #:flags
    ;; Lispy interface
    #:with-color
+   #:with-colors
    #:with-rect
    #:with-rects
    #:with-window

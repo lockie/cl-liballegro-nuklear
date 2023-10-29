@@ -6,6 +6,16 @@
      (declare (dynamic-extent ,var))
      ,@body))
 
+(defmacro with-colors (vars &body body)
+  "Executes BODY with the variables in VARS bound to Nuklear color structs with fields R, G, B, A recieved from the corresponding keyword arguments in each var."
+  `(let (,@(mapcar
+             #'(lambda (v)
+                 (destructuring-bind (name (&key r g b (a 255))) v
+                   `(,name `(r ,,r g ,,g b ,,b a ,,a))))
+             vars))
+     (declare (dynamic-extent ,@(mapcar #'car vars)))
+     ,@body))
+
 (defmacro with-rect ((var &key x y w h) &body body)
   "Executes BODY with the variable VAR bound to Nuklear rect struct with fields X, Y, W, H."
   `(let ((,var `(x ,(float ,x) y ,(float ,y) w ,(float ,w) h ,(float ,h))))
