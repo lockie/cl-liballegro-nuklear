@@ -21,10 +21,11 @@ Currently tested to work on following OSes:
 * FreeBSD
 
 ...and on following Lisp compilers:
-* [SBCL](http://sbcl.org)
+* [SBCL](https://sbcl.org)
 * [CCL](https://ccl.clozure.com)
 * [ECL](https://common-lisp.net/project/ecl/main.html)
 * [ACL](https://franz.com/products/allegro-common-lisp)
+* [LispWorks](https://lispworks.com/products/lispworks.html)
 
 Usage
 -----
