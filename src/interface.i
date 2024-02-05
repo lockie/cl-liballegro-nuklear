@@ -747,3 +747,16 @@ void                   nk_allegro5_del_image(struct nk_image* image);
 NkAllegro5Font*        nk_allegro5_font_create_from_file(const char *file_name, int font_size, int flags);
 void                   nk_allegro5_font_del(NkAllegro5Font *font);
 void                   nk_allegro5_font_set_font(NkAllegro5Font *font);
+void                   nk_allegro5_setup_assert(void (*debug_break_callback)(const char*), void(*abort_callback)(void));
+
+%insert("swiglisp") %{
+(cffi:defcallback break-callback :void ((s :string))
+    (break s))
+
+(cffi:defcallback abort-callback :void ()
+    (abort))
+
+(allegro-setup-assert
+    (cffi:callback break-callback)
+    (cffi:callback abort-callback))
+%}

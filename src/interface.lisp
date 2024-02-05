@@ -2461,4 +2461,17 @@
 (cffi:defcfun ("nk_allegro5_font_set_font" #.(swig-lispify "allegro_font_set_font" 'function)) :void
   (font :pointer))
 
+(cffi:defcfun ("nk_allegro5_setup_assert" #.(swig-lispify "allegro_setup_assert" 'function)) :void
+  (debug_break_callback :pointer)
+  (abort_callback :pointer))
+
+(cffi:defcallback break-callback :void ((s :string))
+    (break s))
+
+(cffi:defcallback abort-callback :void ()
+    (abort))
+
+(allegro-setup-assert
+    (cffi:callback break-callback)
+    (cffi:callback abort-callback))
 

@@ -488,6 +488,7 @@
    #:allegro-font-create-from-file
    #:allegro-font-del
    #:allegro-font-set-font
+   #:allegro-setup-assert
    ;; Helpers
    #:flags
    ;; Lispy interface
