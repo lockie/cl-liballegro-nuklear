@@ -87,12 +87,16 @@ typedef char nk_glyph[4];
 typedef void* nk_handle;
 struct nk_image {nk_handle handle;unsigned short w,h;unsigned short region[4];};
 struct nk_nine_slice {struct nk_image img; unsigned short l, t, r, b;};
+struct nk_cursor {struct nk_image img; struct nk_vec2 size, offset;};
 struct nk_scroll {nk_uint x, y;};
 
 enum nk_heading         {NK_UP, NK_RIGHT, NK_DOWN, NK_LEFT};
 enum nk_button_behavior {NK_BUTTON_DEFAULT, NK_BUTTON_REPEATER};
 enum nk_modify          {NK_FIXED, NK_MODIFIABLE};
+enum nk_orientation     {NK_VERTICAL, NK_HORIZONTAL};
 enum nk_chart_type      {NK_CHART_LINES, NK_CHART_COLUMN, NK_CHART_MAX};
+enum nk_chart_event     {NK_CHART_HOVERING = 0x01, NK_CHART_CLICKED = 0x02};
+enum nk_color_format    {NK_RGB, NK_RGBA};
 enum nk_popup_type      {NK_POPUP_STATIC, NK_POPUP_DYNAMIC};
 
 enum nk_symbol_type {
@@ -178,7 +182,8 @@ enum nk_panel_flags {
 enum nk_widget_layout_states {
     NK_WIDGET_INVALID, /* The widget cannot be seen and is completely out of view */
     NK_WIDGET_VALID, /* The widget is completely inside the window and can be updated and drawn */
-    NK_WIDGET_ROM /* The widget is partially visible and cannot be updated */
+    NK_WIDGET_ROM, /* The widget is partially visible and cannot be updated */
+    NK_WIDGET_DISABLED /* The widget is manually disabled and acts like NK_WIDGET_ROM */
 };
 enum nk_widget_states {
     NK_WIDGET_STATE_MODIFIED    = 2,
