@@ -159,6 +159,11 @@
 	(#.(swig-lispify "r" 'slotname) :unsigned-short)
 	(#.(swig-lispify "b" 'slotname) :unsigned-short))
 
+(cffi:defcstruct (#.(swig-lispify "cursor" 'classname) :class #.(swig-lispify "cursor" 'classname))
+	(#.(swig-lispify "img" 'slotname) (:struct #.(swig-lispify "image" 'classname)))
+	(#.(swig-lispify "size" 'slotname) (:struct #.(swig-lispify "vec2" 'classname)))
+	(#.(swig-lispify "offset" 'slotname) (:struct #.(swig-lispify "vec2" 'classname))))
+
 (cffi:defcstruct (#.(swig-lispify "scroll" 'classname) :class #.(swig-lispify "scroll" 'classname))
 	(#.(swig-lispify "x" 'slotname) :unsigned-int)
 	(#.(swig-lispify "y" 'slotname) :unsigned-int))
@@ -177,10 +182,22 @@
 	#.(swig-lispify "FIXED" 'enumvalue :keyword)
 	#.(swig-lispify "MODIFIABLE" 'enumvalue :keyword))
 
+(cffi:defcenum #.(swig-lispify "orientation" 'enumname)
+	#.(swig-lispify "VERTICAL" 'enumvalue :keyword)
+	#.(swig-lispify "HORIZONTAL" 'enumvalue :keyword))
+
 (cffi:defcenum #.(swig-lispify "chart_type" 'enumname)
 	#.(swig-lispify "CHART_LINES" 'enumvalue :keyword)
 	#.(swig-lispify "CHART_COLUMN" 'enumvalue :keyword)
 	#.(swig-lispify "CHART_MAX" 'enumvalue :keyword))
+
+(cffi:defcenum #.(swig-lispify "chart_event" 'enumname)
+	(#.(swig-lispify "CHART_HOVERING" 'enumvalue :keyword) #.#x01)
+	(#.(swig-lispify "CHART_CLICKED" 'enumvalue :keyword) #.#x02))
+
+(cffi:defcenum #.(swig-lispify "color_format" 'enumname)
+	#.(swig-lispify "RGB" 'enumvalue :keyword)
+	#.(swig-lispify "RGBA" 'enumvalue :keyword))
 
 (cffi:defcenum #.(swig-lispify "popup_type" 'enumname)
 	#.(swig-lispify "POPUP_STATIC" 'enumvalue :keyword)
@@ -274,7 +291,8 @@
 (cffi:defcenum #.(swig-lispify "widget_layout_states" 'enumname)
 	#.(swig-lispify "WIDGET_INVALID" 'enumvalue :keyword)
 	#.(swig-lispify "WIDGET_VALID" 'enumvalue :keyword)
-	#.(swig-lispify "WIDGET_ROM" 'enumvalue :keyword))
+	#.(swig-lispify "WIDGET_ROM" 'enumvalue :keyword)
+	#.(swig-lispify "WIDGET_DISABLED" 'enumvalue :keyword))
 
 (cffi:defcenum #.(swig-lispify "widget_states" 'enumname)
 	(#.(swig-lispify "WIDGET_STATE_MODIFIED" 'enumvalue :keyword) #.2)
@@ -1170,12 +1188,12 @@
 (cffi:defcfun ("nk_color_picker" #.(swig-lispify "color_picker" 'function)) (:struct #.(swig-lispify "colorf" 'classname))
   (arg0 :pointer)
   (arg1 (:struct #.(swig-lispify "colorf" 'classname)))
-  (arg2 :pointer))
+  (arg2 #.(swig-lispify "color_format" 'enumname)))
 
 (cffi:defcfun ("nk_color_pick" #.(swig-lispify "color_pick" 'function)) :int
   (arg0 :pointer)
   (arg1 :pointer)
-  (arg2 :pointer))
+  (arg2 #.(swig-lispify "color_format" 'enumname)))
 
 (cffi:defcfun ("nk_property_int" #.(swig-lispify "property_int" 'function)) :void
   (arg0 :pointer)
