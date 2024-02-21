@@ -2380,6 +2380,11 @@
   (arg1 #.(swig-lispify "buttons" 'enumname))
   (arg2 (:struct #.(swig-lispify "rect" 'classname))))
 
+(cffi:defcfun ("nk_input_has_mouse_click_in_button_rect" #.(swig-lispify "input_has_mouse_click_in_button_rect" 'function)) :int
+  (arg0 :pointer)
+  (arg1 #.(swig-lispify "buttons" 'enumname))
+  (arg2 (:struct #.(swig-lispify "rect" 'classname))))
+
 (cffi:defcfun ("nk_input_has_mouse_click_down_in_rect" #.(swig-lispify "input_has_mouse_click_down_in_rect" 'function)) :int
   (arg0 :pointer)
   (arg1 #.(swig-lispify "buttons" 'enumname))
