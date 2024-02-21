@@ -460,6 +460,7 @@
    ;; Input
    #:input-has-mouse-click
    #:input-has-mouse-click-in-rect
+   #:input-has-mouse-click-in-button-rect
    #:input-has-mouse-click-down-in-rect
    #:input-is-mouse-click-in-rect
    #:input-is-mouse-click-down-in-rect
