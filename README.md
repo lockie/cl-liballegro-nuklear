@@ -12,11 +12,13 @@ Installation
 ------------
 Just execute `(ql:quickload :cl-liballegro-nuklear)` in your Lisp.
 
+To get the latest version of the package, install [Lucky Lambda](http://dist.luckylambda.technology/releases/lucky-lambda) Quicklisp distribution.
+
 **Note**: upon loading this library with [asdf](https://common-lisp.net/project/asdf), the corresponding foreign library is automatically built (`allegro_nuklear.dll` on Windows, `liballegro_nuklear.so` on more sane operating systems), so you'll have to have [compiler toolchain](https://gcc.gnu.org) and [liballegro dev files](https://liballeg.github.io/download.html) installed on your machine.
 
 Currently tested to work on following OSes:
 * Windows (using [MinGW64](https://mingw-w64.org/downloads/#mingw-builds) and `seh-dynamic` variant of [official liballegro binaries](https://github.com/liballeg/allegro5/releases))
-* MacOS (using [Homebrew version of liballegro](https://formulae.brew.sh/formula/allegro))
+* MacOS (using liballegro from both [Homebrew](https://formulae.brew.sh/formula/allegro) and [MacPorts](https://ports.macports.org/port/allegro5))
 * Linux
 * FreeBSD
 
