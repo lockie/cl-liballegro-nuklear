@@ -139,6 +139,9 @@
    #:tree-state-push
    #:tree-state-image-push
    #:tree-state-pop
+   #:tree-element-push-hashed
+   #:tree-element-image-push-hashed
+   #:tree-element-pop
    ;; List view
    #:list-view-begin
    #:list-view-end
@@ -189,17 +192,24 @@
    ;; Checkbox
    #:check-label
    #:check-text
+   #:check-text-align
    #:check-flags-label
    #:check-flags-text
    #:checkbox-label
+   #:checkbox-label-align
    #:checkbox-text
+   #:checkbox-text-align
    #:checkbox-flags-label
    #:checkbox-flags-text
    ;; Radio button
    #:radio-label
+   #:radio-label-align
    #:radio-text
+   #:radio-text-align
    #:option-label
+   #:option-label-align
    #:option-text
+   #:option-text-align
    ;; Selectable
    #:selectable-label
    #:selectable-text
@@ -343,6 +353,7 @@
    #:rgb-fv
    #:rgb-cf
    #:rgb-hex
+   #:rgb-factor
    #:rgba
    #:rgba-u32
    #:rgba-iv

@@ -392,6 +392,9 @@ void nk_tree_pop(struct nk_context*);
 int nk_tree_state_push(struct nk_context*, enum nk_tree_type, const char *title, enum nk_collapse_states *state);
 int nk_tree_state_image_push(struct nk_context*, enum nk_tree_type, struct nk_image, const char *title, enum nk_collapse_states *state);
 void nk_tree_state_pop(struct nk_context*);
+int nk_tree_element_push_hashed(struct nk_context*, enum nk_tree_type, const char *title, enum nk_collapse_states initial_state, int *selected, const char *hash, int len, int seed);
+int nk_tree_element_image_push_hashed(struct nk_context*, enum nk_tree_type, struct nk_image, const char *title, enum nk_collapse_states initial_state, int *selected, const char *hash, int len,int seed);
+void nk_tree_element_pop(struct nk_context*);
 // List view
 int nk_list_view_begin(struct nk_context*, struct nk_list_view *out, const char *id, nk_flags, int row_height, int row_count);
 void nk_list_view_end(struct nk_list_view*);
@@ -438,21 +441,27 @@ int nk_button_image_text_styled(struct nk_context*,const struct nk_style_button*
 void nk_button_set_behavior(struct nk_context*, enum nk_button_behavior);
 int nk_button_push_behavior(struct nk_context*, enum nk_button_behavior);
 int nk_button_pop_behavior(struct nk_context*);
-// XXX
 // Checkbox
 int nk_check_label(struct nk_context*, const char*, int active);
 int nk_check_text(struct nk_context*, const char*, int,int active);
+int nk_check_text_align(struct nk_context*, const char*, int, int active, nk_flags widget_alignment, nk_flags text_alignment);
 unsigned nk_check_flags_label(struct nk_context*, const char*, unsigned int flags, unsigned int value);
 unsigned nk_check_flags_text(struct nk_context*, const char*, int, unsigned int flags, unsigned int value);
 int nk_checkbox_label(struct nk_context*, const char*, int *active);
+int nk_checkbox_label_align(struct nk_context *ctx, const char *label, int *active, nk_flags widget_alignment, nk_flags text_alignment);
 int nk_checkbox_text(struct nk_context*, const char*, int, int *active);
+int nk_checkbox_text_align(struct nk_context *ctx, const char *text, int len, int *active, nk_flags widget_alignment, nk_flags text_alignment);
 int nk_checkbox_flags_label(struct nk_context*, const char*, unsigned int *flags, unsigned int value);
 int nk_checkbox_flags_text(struct nk_context*, const char*, int, unsigned int *flags, unsigned int value);
 // Radio button
 int nk_radio_label(struct nk_context*, const char*, int *active);
+int nk_radio_label_align(struct nk_context *ctx, const char *label, int *active, nk_flags widget_alignment, nk_flags text_alignment);
 int nk_radio_text(struct nk_context*, const char*, int, int *active);
+int nk_radio_text_align(struct nk_context *ctx, const char *text, int len, int *active, nk_flags widget_alignment, nk_flags text_alignment);
 int nk_option_label(struct nk_context*, const char*, int active);
+int nk_option_label_align(struct nk_context *ctx, const char *label, int active, nk_flags widget_alignment, nk_flags text_alignment);
 int nk_option_text(struct nk_context*, const char*, int, int active);
+int nk_option_text_align(struct nk_context *ctx, const char *text, int len, int is_active, nk_flags widget_alignment, nk_flags text_alignment);
 // Selectable
 int nk_selectable_label(struct nk_context*, const char*, nk_flags align, int *value);
 int nk_selectable_text(struct nk_context*, const char*, int, nk_flags align, int *value);
@@ -484,7 +493,6 @@ void nk_property_double(struct nk_context*, const char *name, double min, double
 int nk_propertyi(struct nk_context*, const char *name, int min, int val, int max, int step, float inc_per_pixel);
 float nk_propertyf(struct nk_context*, const char *name, float min, float val, float max, float step, float inc_per_pixel);
 double nk_propertyd(struct nk_context*, const char *name, double min, double val, double max, double step, float inc_per_pixel);
-// XXX
 // Text edit
 nk_flags nk_edit_string(struct nk_context*, nk_flags, char *buffer, int *len, int max, nk_plugin_filter);
 nk_flags nk_edit_string_zero_terminated(struct nk_context*, nk_flags, char *buffer, int max, nk_plugin_filter);
@@ -597,6 +605,7 @@ struct nk_color nk_rgb_f(float r, float g, float b);
 struct nk_color nk_rgb_fv(const float *rgb);
 struct nk_color nk_rgb_cf(struct nk_colorf c);
 struct nk_color nk_rgb_hex(const char *rgb);
+struct nk_color nk_rgb_factor(struct nk_color col, const float factor);
 struct nk_color nk_rgba(int r, int g, int b, int a);
 struct nk_color nk_rgba_u32(nk_uint);
 struct nk_color nk_rgba_iv(const int *rgba);

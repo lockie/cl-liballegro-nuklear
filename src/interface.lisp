@@ -780,6 +780,30 @@
 (cffi:defcfun ("nk_tree_state_pop" #.(swig-lispify "tree_state_pop" 'function)) :void
   (arg0 :pointer))
 
+(cffi:defcfun ("nk_tree_element_push_hashed" #.(swig-lispify "tree_element_push_hashed" 'function)) :int
+  (arg0 :pointer)
+  (arg1 #.(swig-lispify "tree_type" 'enumname))
+  (title :string)
+  (initial_state #.(swig-lispify "collapse_states" 'enumname))
+  (selected :pointer)
+  (hash :string)
+  (len :int)
+  (seed :int))
+
+(cffi:defcfun ("nk_tree_element_image_push_hashed" #.(swig-lispify "tree_element_image_push_hashed" 'function)) :int
+  (arg0 :pointer)
+  (arg1 #.(swig-lispify "tree_type" 'enumname))
+  (arg2 (:struct #.(swig-lispify "image" 'classname)))
+  (title :string)
+  (initial_state #.(swig-lispify "collapse_states" 'enumname))
+  (selected :pointer)
+  (hash :string)
+  (len :int)
+  (seed :int))
+
+(cffi:defcfun ("nk_tree_element_pop" #.(swig-lispify "tree_element_pop" 'function)) :void
+  (arg0 :pointer))
+
 (cffi:defcfun ("nk_list_view_begin" #.(swig-lispify "list_view_begin" 'function)) :int
   (arg0 :pointer)
   (out :pointer)
@@ -1000,6 +1024,14 @@
   (arg2 :int)
   (active :int))
 
+(cffi:defcfun ("nk_check_text_align" #.(swig-lispify "check_text_align" 'function)) :int
+  (arg0 :pointer)
+  (arg1 :string)
+  (arg2 :int)
+  (active :int)
+  (widget_alignment :unsigned-int)
+  (text_alignment :unsigned-int))
+
 (cffi:defcfun ("nk_check_flags_label" #.(swig-lispify "check_flags_label" 'function)) :unsigned-int
   (arg0 :pointer)
   (arg1 :string)
@@ -1018,11 +1050,26 @@
   (arg1 :string)
   (active :pointer))
 
+(cffi:defcfun ("nk_checkbox_label_align" #.(swig-lispify "checkbox_label_align" 'function)) :int
+  (ctx :pointer)
+  (label :string)
+  (active :pointer)
+  (widget_alignment :unsigned-int)
+  (text_alignment :unsigned-int))
+
 (cffi:defcfun ("nk_checkbox_text" #.(swig-lispify "checkbox_text" 'function)) :int
   (arg0 :pointer)
   (arg1 :string)
   (arg2 :int)
   (active :pointer))
+
+(cffi:defcfun ("nk_checkbox_text_align" #.(swig-lispify "checkbox_text_align" 'function)) :int
+  (ctx :pointer)
+  (text :string)
+  (len :int)
+  (active :pointer)
+  (widget_alignment :unsigned-int)
+  (text_alignment :unsigned-int))
 
 (cffi:defcfun ("nk_checkbox_flags_label" #.(swig-lispify "checkbox_flags_label" 'function)) :int
   (arg0 :pointer)
@@ -1042,22 +1089,52 @@
   (arg1 :string)
   (active :pointer))
 
+(cffi:defcfun ("nk_radio_label_align" #.(swig-lispify "radio_label_align" 'function)) :int
+  (ctx :pointer)
+  (label :string)
+  (active :pointer)
+  (widget_alignment :unsigned-int)
+  (text_alignment :unsigned-int))
+
 (cffi:defcfun ("nk_radio_text" #.(swig-lispify "radio_text" 'function)) :int
   (arg0 :pointer)
   (arg1 :string)
   (arg2 :int)
   (active :pointer))
 
+(cffi:defcfun ("nk_radio_text_align" #.(swig-lispify "radio_text_align" 'function)) :int
+  (ctx :pointer)
+  (text :string)
+  (len :int)
+  (active :pointer)
+  (widget_alignment :unsigned-int)
+  (text_alignment :unsigned-int))
+
 (cffi:defcfun ("nk_option_label" #.(swig-lispify "option_label" 'function)) :int
   (arg0 :pointer)
   (arg1 :string)
   (active :int))
+
+(cffi:defcfun ("nk_option_label_align" #.(swig-lispify "option_label_align" 'function)) :int
+  (ctx :pointer)
+  (label :string)
+  (active :int)
+  (widget_alignment :unsigned-int)
+  (text_alignment :unsigned-int))
 
 (cffi:defcfun ("nk_option_text" #.(swig-lispify "option_text" 'function)) :int
   (arg0 :pointer)
   (arg1 :string)
   (arg2 :int)
   (active :int))
+
+(cffi:defcfun ("nk_option_text_align" #.(swig-lispify "option_text_align" 'function)) :int
+  (ctx :pointer)
+  (text :string)
+  (len :int)
+  (is_active :int)
+  (widget_alignment :unsigned-int)
+  (text_alignment :unsigned-int))
 
 (cffi:defcfun ("nk_selectable_label" #.(swig-lispify "selectable_label" 'function)) :int
   (arg0 :pointer)
@@ -1790,6 +1867,10 @@
 
 (cffi:defcfun ("nk_rgb_hex" #.(swig-lispify "rgb_hex" 'function)) (:struct #.(swig-lispify "color" 'classname))
   (rgb :string))
+
+(cffi:defcfun ("nk_rgb_factor" #.(swig-lispify "rgb_factor" 'function)) (:struct #.(swig-lispify "color" 'classname))
+  (col (:struct #.(swig-lispify "color" 'classname)))
+  (factor :float))
 
 (cffi:defcfun ("nk_rgba" #.(swig-lispify "rgba" 'function)) (:struct #.(swig-lispify "color" 'classname))
   (r :int)
