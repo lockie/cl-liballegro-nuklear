@@ -82,6 +82,45 @@ See [example.lisp](https://gitlab.com/lockie/cl-liballegro-nuklear/-/blob/master
 
 There's also lispy interface making library interaction more idiomatic of CL. See docstrings in [lispy.lisp](https://gitlab.com/lockie/cl-liballegro-nuklear/-/blob/master/src/lispy.lisp) for documentation.
 
+Declarative interface
+---------------------
+There's also declarative interface in separate package `cl-liballegro-nuklear/declarative` which allows you to define an anonymous function doing all required FFI calls and type conversions. To do that, use `defwindow` macro in the following fashion:
+
+```common-lisp
+(uiop:add-package-local-nickname :ui :cl-liballegro-nuklear/declarative)
+
+(setf *window*
+      (ui:defwindow demo ()
+          (:x 50 :y 50 :w 200 :h 200
+           :flags (border movable))
+        (ui:layout-row-static :height 30 :item-width 80 :columns 1)
+        (ui:button-label "button"
+          (format t "button pressed!~%"))))
+
+;; then somewhere in your main loop
+(funcall *window* nuklear-context)
+
+
+;; another example:
+(setf *window*
+      (ui:defwindow loading (&key progress file)
+          (:w display-width :h display-height
+           :styles ((:item-color :window-fixed-background :r 20)))
+        (declare (type alexandria:non-negative-fixnum progress))
+        (ui:layout-space (:format :dynamic :height 54 :widget-count 1)
+          (ui:layout-space-push :x 0.28 :y 6 :w 0.45 :h 1)
+          (ui:styles ((:item-color :progress-normal :r 50 :g 50 :b 50)
+                      (:item-color :progress-cursor-normal :g 50)
+                      (:vec2 :progress-padding :x 0 :y 0))
+            (ui:progress :current progress))
+          (ui:label (format nil " Loading ~a..." file)))))
+
+;; then somewhere in your main loop
+(funcall *window* nuklear-context :progress 42 :file "some.file")
+```
+
+See [declarative.lisp](https://gitlab.com/lockie/cl-liballegro-nuklear/-/blob/master/src/declarative.lisp) for details.
+
 Related projects
 ----------------
 * [bodge-nuklear](http://quickdocs.org/bodge-nuklear), which depends on [nuklear-blob](http://quickdocs.org/nuklear-blob) is other CFFI wrapper for Nuklear. It does not include glue code for liballegro, but designed to work with OpenGL-based [cl-bodge](https://github.com/borodust/cl-bodge) game framework.

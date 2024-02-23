@@ -8,7 +8,7 @@
                     :output t))
 
 (asdf:defsystem :cl-liballegro-nuklear
-  :version "0.0.5"
+  :version "0.0.6"
   :description "CFFI wrapper for the Nuklear IM GUI library with liballegro backend, to be used with cl-liballegro."
   :author "Andrew Kravchuk <awkravchuk@gmail.com>"
   :license "MIT"
@@ -21,3 +21,12 @@
                (:file "interface")
                (:file "lispy")
                (:file "offsets")))
+
+(asdf:defsystem :cl-liballegro-nuklear/declarative
+  :description "Declarative UI interface for cl-liballegro-nuklear."
+  :author "Andrew Kravchuk <awkravchuk@gmail.com>"
+  :license "MIT"
+  :depends-on (:cl-liballegro-nuklear :alexandria :uiop)
+  :pathname "src"
+  :serial t
+  :components ((:file "declarative")))
