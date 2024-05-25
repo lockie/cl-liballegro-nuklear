@@ -117,7 +117,7 @@
                      `((let ((,offset (style-offset ,context ,name)))
                          (nk:style-push-color
                           ,context ,offset
-                          '(nk::r ,r nk::g ,g nk::b ,b nk::a ,a)))
+                          `(nk::r ,,r nk::g ,,g nk::b ,,b nk::a ,,a)))
                        (nk:style-pop-color ,context)))
                     ((:font font)
                      `((nk:style-push-font ,context ,font)
