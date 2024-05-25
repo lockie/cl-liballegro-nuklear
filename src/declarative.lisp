@@ -23,7 +23,7 @@
 
 
 (defmacro coerce-constant (c type)
-  (if (constantp c)
+  (if (and (constantp c) (atom c) (not (symbolp c)))
       (coerce c type)
       `(coerce ,c ',type)))
 
