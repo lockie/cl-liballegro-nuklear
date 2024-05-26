@@ -7,6 +7,7 @@
   (:import-from :uiop :string-prefix-p)
   (:export
    #:defwindow
+   #:with-context
    #:styles
    #:layout-row-static
    #:layout-row-dynamic
@@ -74,6 +75,11 @@
                    (when ,result
                      ,@forms nil)
                 (nk:end ,context)))))))))
+
+(defmacro with-context (context &body body)
+  `(call-with-context
+    (lambda (,context)
+      ,@body)))
 
 (defmacro style-offset (context offset)
   `(cffi:inc-pointer
