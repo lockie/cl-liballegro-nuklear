@@ -7,6 +7,7 @@
   (:import-from :uiop :string-prefix-p)
   (:export
    #:defwindow
+   #:defgroup
    #:with-context
    #:styles
    #:layout-row-static
@@ -53,8 +54,7 @@
     (multiple-value-bind (forms declarations docstring)
         (parse-body body :documentation t)
       `(lambda (,context ,@args)
-         (declare
-          (type cffi:foreign-pointer ,context))
+         (declare (type cffi:foreign-pointer ,context))
          ,@declarations
          ,(if docstring docstring title)
          (macrolet ((call-with-context (function)
@@ -75,6 +75,33 @@
                    (when ,result
                      ,@forms nil)
                 (nk:end ,context)))))))))
+
+(defmacro defgroup (name (&key title flags styles)  &body body)
+  (with-gensyms (context result)
+    (multiple-value-bind (forms declarations docstring)
+        (parse-body body :documentation t)
+    `(call-with-context
+      (lambda (,context)
+        (declare (type cffi:foreign-pointer ,context))
+        ,@declarations
+        ,(if docstring docstring title)
+        (,(if styles 'styles 'progn)
+         ,styles
+         (let ((,result
+                 (plusp
+                  (the fixnum
+                       (,(if title 'nk:group-begin-titled 'nk:group-begin)
+                        ,context
+                        (string-capitalize ',name)
+                        ,@(when title `(,(string title)))
+                        ,(apply #'coerce-flags :panel-flags "+WINDOW-"
+                                flags))))))
+           (unwind-protect
+                (when ,result
+                  ,@forms
+                  nil)
+             (when ,result
+               (nk:group-end ,context))))))))))
 
 (defmacro with-context (context &body body)
   `(call-with-context
