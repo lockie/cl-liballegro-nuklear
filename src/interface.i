@@ -410,6 +410,8 @@ int nk_widget_is_hovered(struct nk_context*);
 int nk_widget_is_mouse_clicked(struct nk_context*, enum nk_buttons);
 int nk_widget_has_mouse_click_down(struct nk_context*, enum nk_buttons, int down);
 void nk_spacing(struct nk_context*, int cols);
+void nk_widget_disable_begin(struct nk_context* ctx);
+void nk_widget_disable_end(struct nk_context* ctx);
 // Text
 void nk_text(struct nk_context*, const char*, int, nk_flags);
 void nk_text_colored(struct nk_context*, const char*, int, nk_flags, struct nk_color);

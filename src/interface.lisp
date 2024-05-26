@@ -855,6 +855,12 @@
   (arg0 :pointer)
   (cols :int))
 
+(cffi:defcfun ("nk_widget_disable_begin" #.(swig-lispify "widget_disable_begin" 'function)) :void
+  (ctx :pointer))
+
+(cffi:defcfun ("nk_widget_disable_end" #.(swig-lispify "widget_disable_end" 'function)) :void
+  (ctx :pointer))
+
 (cffi:defcfun ("nk_text" #.(swig-lispify "text" 'function)) :void
   (arg0 :pointer)
   (arg1 :string)

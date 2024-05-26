@@ -157,6 +157,8 @@
    #:widget-is-mouse-clicked
    #:widget-has-mouse-click-down
    #:spacing
+   #:widget-disable-begin
+   #:widget-disable-end
    ;; Text
    #:text
    #:text-colored
