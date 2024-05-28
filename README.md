@@ -121,6 +121,14 @@ There's also declarative interface in separate package `cl-liballegro-nuklear/de
 
 See [declarative.lisp](https://gitlab.com/lockie/cl-liballegro-nuklear/-/blob/master/src/declarative.lisp) for details.
 
+Games made using cl-liballegro-nuklear
+--------------------------------------
+* [Darkness Looming: The Dawn](https://awkravchuk.itch.io/darkness-looming-the-dawn)
+* [Thoughtbound](https://awkravchuk.itch.io/thoughtbound)
+* [Mana Break](https://awkravchuk.itch.io/mana-break)
+* [Cycle of Evil](https://awkravchuk.itch.io/cycle-of-evil)
+* [make your own!](https://gitlab.com/lockie/cl-fast-ecs/-/issues/new)
+
 Related projects
 ----------------
 * [bodge-nuklear](http://quickdocs.org/bodge-nuklear), which depends on [nuklear-blob](http://quickdocs.org/nuklear-blob) is other CFFI wrapper for Nuklear. It does not include glue code for liballegro, but designed to work with OpenGL-based [cl-bodge](https://github.com/borodust/cl-bodge) game framework.
