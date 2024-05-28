@@ -127,7 +127,7 @@ Games made using cl-liballegro-nuklear
 * [Thoughtbound](https://awkravchuk.itch.io/thoughtbound)
 * [Mana Break](https://awkravchuk.itch.io/mana-break)
 * [Cycle of Evil](https://awkravchuk.itch.io/cycle-of-evil)
-* [make your own!](https://gitlab.com/lockie/cl-fast-ecs/-/issues/new)
+* [make your own!](https://gitlab.com/lockie/cl-liballegro-nuklear/-/issues/new)
 
 Related projects
 ----------------
