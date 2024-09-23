@@ -1,2 +1,45 @@
 *** DONE add more lispish helper macroses, like defpanel from here: https://github.com/borodust/bodge-ui-window/blob/master/examples/basic-example.org
 *** DONE use dynamic-extent for push-* macros?
+*** TODO add Roboto as default font
+*** TODO make more performant CFFI-based versions of simple ctors like nk:rgb and such
+*** TODO it appears SDL2 now properly works with Nuklear: https://github.com/Immediate-Mode-UI/Nuklear/tree/master/demo/sdl_renderer . Think about using both backends (split into two systems?)
+Make new package a la cl-nuklear, and when loading it, check if cl-liballegro-nuklear or cl-sdl2-nuklear is loaded, and if not, produce a warning
+Also have a look at https://github.com/fukamachi/clack/blob/master/src/util.lisp#L9
+Or just depend backwards: make both cl-liballegro-nuklear and cl-sd2-nuklear depend on cl-nuklear
+*** TODO make 9slice work
+something in the spirit of (nk:nine-slice-ptr al-image 0 0 0 0)
+see also https://github.com/Immediate-Mode-UI/Nuklear/pull/304
+
+*** DONE nk_begin and such are being checked with GENERIC->
+...so do something about their types.
+Also perhaps replace nk_begin with a macro doing `() for rect, so no consing.
+Perhaps with-window or something?
+*** TODO test another compilers (ABCL, Clisp, Clasp, LispWorks)
+*** DONE some sort of compilation interface? spec -> function
+*** TODO deprecate stuff in lispy.lisp? see https://github.com/Shinmera/trivial-deprecate/blob/main/trivial-deprecate.lisp
+*** TODO make separate examples dir?
+*** TODO read https://dthompson.us/posts/functional-reactive-user-interfaces-with-propagators.html
+*** TODO more declarative apis:
+- more layouts: https://immediate-mode-ui.github.io/Nuklear/doc/index.html#nuklear/api/layouting
+- groups https://immediate-mode-ui.github.io/Nuklear/doc/index.html#nuklear/api/groups
+- tree
+- list view
+- other types of button, button behaviour
+- checkbox
+- radio button
+- selectable?
+- slider!
+- knob
+- color picker
+- properties
+- text edit
+- chart?
+- popup!
+- combobox
+- abstract combobox?..
+- contextual?..
+- tooltip
+- menu
+- color conversion from HTML hex (and possibly others, have a look at matplotlib?)
+- text editor
+- other input helpers
