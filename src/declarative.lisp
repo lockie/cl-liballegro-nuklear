@@ -53,7 +53,7 @@
   (with-gensyms (context result)
     (multiple-value-bind (forms declarations docstring)
         (parse-body body :documentation t)
-      `(lambda (,context ,@args)
+      `(defun ,name (,context ,@args)
          (declare (type cffi:foreign-pointer ,context))
          ,@declarations
          ,(if docstring docstring title)
@@ -73,7 +73,7 @@
                                    flags))))))
               (unwind-protect
                    (when ,result
-                     ,@forms nil)
+                     ,@forms)
                 (nk:end ,context)))))))))
 
 (defmacro defgroup (name (&key title flags styles)  &body body)
@@ -145,7 +145,30 @@
                          (declare (dynamic-extent ,item))
                          (nk:style-push-style-item ,context ,offset ,item))
                        (nk:style-pop-style-item ,context)))
-                    ;; TODO: item-nine-slice
+                    ((:item-9slice name image &key left top right bottom)
+                     (let ((w/3 `(truncate
+                                  (cffi:foreign-slot-value ,image
+                                                           '(:struct nk:image)
+                                                           'nk::w)
+                                  3))
+                           (h/3 `(truncate
+                                  (cffi:foreign-slot-value ,image
+                                                           '(:struct nk:image)
+                                                           'nk::h)
+                                  3)))
+                       `((let ((,offset (style-offset ,context ,name))
+                               (,item `(nk::data
+                                        (nk::img
+                                         ,,image
+                                         nk::l
+                                         ,(if ,left ,left ,w/3)
+                                         t ,(if ,top ,top ,h/3)
+                                         nk::r ,(if ,right ,right ,w/3)
+                                         nk::b ,(if ,bottom ,bottom ,h/3))
+                                        nk::type :+style-item-nine-slice+)))
+                           (declare (dynamic-extent ,item))
+                           (nk:style-push-style-item ,context ,offset ,item))
+                         (nk:style-pop-style-item ,context))))
                     ((:color name &key (r 0) (g 0) (b 0) (a 255))
                      `((let ((,offset (style-offset ,context ,name)))
                          (nk:style-push-color
@@ -201,7 +224,10 @@
          ,context
          ,(coerce-flags :layout-format "+" format)
          (coerce-constant ,height single-float)
-         (coerce-constant ,widget-count fixnum))
+         (coerce-constant ,(if widget-count
+                               widget-count
+                               #.(1- (ash 1 31)))
+                          fixnum))
         (unwind-protect
              (progn ,@body)
           (nk:layout-space-end ,context))))))
