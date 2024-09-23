@@ -94,10 +94,18 @@ enum nk_heading         {NK_UP, NK_RIGHT, NK_DOWN, NK_LEFT};
 enum nk_button_behavior {NK_BUTTON_DEFAULT, NK_BUTTON_REPEATER};
 enum nk_modify          {NK_FIXED, NK_MODIFIABLE};
 enum nk_orientation     {NK_VERTICAL, NK_HORIZONTAL};
+enum nk_collapse_states {NK_MINIMIZED, NK_MAXIMIZED};
+enum nk_show_states     {NK_HIDDEN, NK_SHOWN};
 enum nk_chart_type      {NK_CHART_LINES, NK_CHART_COLUMN, NK_CHART_MAX};
 enum nk_chart_event     {NK_CHART_HOVERING = 0x01, NK_CHART_CLICKED = 0x02};
 enum nk_color_format    {NK_RGB, NK_RGBA};
 enum nk_popup_type      {NK_POPUP_STATIC, NK_POPUP_DYNAMIC};
+enum nk_layout_format   {NK_DYNAMIC, NK_STATIC};
+enum nk_tree_type       {NK_TREE_NODE, NK_TREE_TAB};
+
+typedef nk_bool(*nk_plugin_filter)(const struct nk_text_edit*, nk_rune unicode);
+typedef void(*nk_plugin_paste)(nk_handle, struct nk_text_edit*);
+typedef void(*nk_plugin_copy)(nk_handle, const char*, int len);
 
 enum nk_symbol_type {
     NK_SYMBOL_NONE,
@@ -113,6 +121,10 @@ enum nk_symbol_type {
     NK_SYMBOL_TRIANGLE_RIGHT,
     NK_SYMBOL_PLUS,
     NK_SYMBOL_MINUS,
+    NK_SYMBOL_TRIANGLE_UP_OUTLINE,
+    NK_SYMBOL_TRIANGLE_DOWN_OUTLINE,
+    NK_SYMBOL_TRIANGLE_LEFT_OUTLINE,
+    NK_SYMBOL_TRIANGLE_RIGHT_OUTLINE,
     NK_SYMBOL_MAX
 };
 
@@ -159,11 +171,6 @@ enum nk_buttons {
     NK_BUTTON_DOUBLE,
     NK_BUTTON_MAX
 };
-
-enum nk_collapse_states {NK_MINIMIZED = 0, NK_MAXIMIZED = 1};
-enum nk_show_states     {NK_HIDDEN = 0, NK_SHOWN = 1};
-enum nk_layout_format   {NK_DYNAMIC, NK_STATIC};
-enum nk_tree_type       {NK_TREE_NODE, NK_TREE_TAB};
 
 enum nk_panel_flags {
     NK_WINDOW_BORDER            = 1,
@@ -268,6 +275,10 @@ enum nk_style_colors {
     NK_COLOR_SCROLLBAR_CURSOR_HOVER,
     NK_COLOR_SCROLLBAR_CURSOR_ACTIVE,
     NK_COLOR_TAB_HEADER,
+    NK_COLOR_KNOB,
+    NK_COLOR_KNOB_CURSOR,
+    NK_COLOR_KNOB_CURSOR_HOVER,
+    NK_COLOR_KNOB_CURSOR_ACTIVE,
     NK_COLOR_COUNT
 };
 enum nk_style_cursor {
@@ -482,6 +493,9 @@ float nk_slide_float(struct nk_context*, float min, float val, float max, float 
 int nk_slide_int(struct nk_context*, int min, int val, int max, int step);
 int nk_slider_float(struct nk_context*, float min, float *val, float max, float step);
 int nk_slider_int(struct nk_context*, int min, int *val, int max, int step);
+// Knob
+nk_bool nk_knob_float(struct nk_context*, float min, float *val, float max, float step, enum nk_heading zero_direction, float dead_zone_degrees);
+nk_bool nk_knob_int(struct nk_context*, int min, int *val, int max, int step, enum nk_heading zero_direction, float dead_zone_degrees);
 // Progressbar
 int nk_progress(struct nk_context*, nk_size *cur, nk_size max, int modifyable);
 nk_size nk_prog(struct nk_context*, nk_size cur, nk_size max, int modifyable);

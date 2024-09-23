@@ -186,6 +186,14 @@
 	#.(swig-lispify "VERTICAL" 'enumvalue :keyword)
 	#.(swig-lispify "HORIZONTAL" 'enumvalue :keyword))
 
+(cffi:defcenum #.(swig-lispify "collapse_states" 'enumname)
+	#.(swig-lispify "MINIMIZED" 'enumvalue :keyword)
+	#.(swig-lispify "MAXIMIZED" 'enumvalue :keyword))
+
+(cffi:defcenum #.(swig-lispify "show_states" 'enumname)
+	#.(swig-lispify "HIDDEN" 'enumvalue :keyword)
+	#.(swig-lispify "SHOWN" 'enumvalue :keyword))
+
 (cffi:defcenum #.(swig-lispify "chart_type" 'enumname)
 	#.(swig-lispify "CHART_LINES" 'enumvalue :keyword)
 	#.(swig-lispify "CHART_COLUMN" 'enumvalue :keyword)
@@ -203,6 +211,14 @@
 	#.(swig-lispify "POPUP_STATIC" 'enumvalue :keyword)
 	#.(swig-lispify "POPUP_DYNAMIC" 'enumvalue :keyword))
 
+(cffi:defcenum #.(swig-lispify "layout_format" 'enumname)
+	#.(swig-lispify "DYNAMIC" 'enumvalue :keyword)
+	#.(swig-lispify "STATIC" 'enumvalue :keyword))
+
+(cffi:defcenum #.(swig-lispify "tree_type" 'enumname)
+	#.(swig-lispify "TREE_NODE" 'enumvalue :keyword)
+	#.(swig-lispify "TREE_TAB" 'enumvalue :keyword))
+
 (cffi:defcenum #.(swig-lispify "symbol_type" 'enumname)
 	#.(swig-lispify "SYMBOL_NONE" 'enumvalue :keyword)
 	#.(swig-lispify "SYMBOL_X" 'enumvalue :keyword)
@@ -217,6 +233,10 @@
 	#.(swig-lispify "SYMBOL_TRIANGLE_RIGHT" 'enumvalue :keyword)
 	#.(swig-lispify "SYMBOL_PLUS" 'enumvalue :keyword)
 	#.(swig-lispify "SYMBOL_MINUS" 'enumvalue :keyword)
+	#.(swig-lispify "SYMBOL_TRIANGLE_UP_OUTLINE" 'enumvalue :keyword)
+	#.(swig-lispify "SYMBOL_TRIANGLE_DOWN_OUTLINE" 'enumvalue :keyword)
+	#.(swig-lispify "SYMBOL_TRIANGLE_LEFT_OUTLINE" 'enumvalue :keyword)
+	#.(swig-lispify "SYMBOL_TRIANGLE_RIGHT_OUTLINE" 'enumvalue :keyword)
 	#.(swig-lispify "SYMBOL_MAX" 'enumvalue :keyword))
 
 (cffi:defcenum #.(swig-lispify "keys" 'enumname)
@@ -258,22 +278,6 @@
 	#.(swig-lispify "BUTTON_RIGHT" 'enumvalue :keyword)
 	#.(swig-lispify "BUTTON_DOUBLE" 'enumvalue :keyword)
 	#.(swig-lispify "BUTTON_MAX" 'enumvalue :keyword))
-
-(cffi:defcenum #.(swig-lispify "collapse_states" 'enumname)
-	(#.(swig-lispify "MINIMIZED" 'enumvalue :keyword) #.0)
-	(#.(swig-lispify "MAXIMIZED" 'enumvalue :keyword) #.1))
-
-(cffi:defcenum #.(swig-lispify "show_states" 'enumname)
-	(#.(swig-lispify "HIDDEN" 'enumvalue :keyword) #.0)
-	(#.(swig-lispify "SHOWN" 'enumvalue :keyword) #.1))
-
-(cffi:defcenum #.(swig-lispify "layout_format" 'enumname)
-	#.(swig-lispify "DYNAMIC" 'enumvalue :keyword)
-	#.(swig-lispify "STATIC" 'enumvalue :keyword))
-
-(cffi:defcenum #.(swig-lispify "tree_type" 'enumname)
-	#.(swig-lispify "TREE_NODE" 'enumvalue :keyword)
-	#.(swig-lispify "TREE_TAB" 'enumvalue :keyword))
 
 (cffi:defcenum #.(swig-lispify "panel_flags" 'enumname)
 	(#.(swig-lispify "WINDOW_BORDER" 'enumvalue :keyword) #.1)
@@ -374,6 +378,10 @@
 	#.(swig-lispify "COLOR_SCROLLBAR_CURSOR_HOVER" 'enumvalue :keyword)
 	#.(swig-lispify "COLOR_SCROLLBAR_CURSOR_ACTIVE" 'enumvalue :keyword)
 	#.(swig-lispify "COLOR_TAB_HEADER" 'enumvalue :keyword)
+	#.(swig-lispify "COLOR_KNOB" 'enumvalue :keyword)
+	#.(swig-lispify "COLOR_KNOB_CURSOR" 'enumvalue :keyword)
+	#.(swig-lispify "COLOR_KNOB_CURSOR_HOVER" 'enumvalue :keyword)
+	#.(swig-lispify "COLOR_KNOB_CURSOR_ACTIVE" 'enumvalue :keyword)
 	#.(swig-lispify "COLOR_COUNT" 'enumvalue :keyword))
 
 (cffi:defcenum #.(swig-lispify "style_cursor" 'enumname)
@@ -1255,6 +1263,24 @@
   (val :pointer)
   (max :int)
   (step :int))
+
+(cffi:defcfun ("nk_knob_float" #.(swig-lispify "knob_float" 'function)) :pointer
+  (arg0 :pointer)
+  (min :float)
+  (val :pointer)
+  (max :float)
+  (step :float)
+  (zero_direction #.(swig-lispify "heading" 'enumname))
+  (dead_zone_degrees :float))
+
+(cffi:defcfun ("nk_knob_int" #.(swig-lispify "knob_int" 'function)) :pointer
+  (arg0 :pointer)
+  (min :int)
+  (val :pointer)
+  (max :int)
+  (step :int)
+  (zero_direction #.(swig-lispify "heading" 'enumname))
+  (dead_zone_degrees :float))
 
 (cffi:defcfun ("nk_progress" #.(swig-lispify "progress" 'function)) :int
   (arg0 :pointer)

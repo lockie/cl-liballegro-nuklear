@@ -216,6 +216,25 @@ int main(void)
     DEFOFFSET(style, nk_style, slider, nk_style_slider, inc_symbol);
     DEFOFFSET(style, nk_style, slider, nk_style_slider, dec_symbol);
 
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, normal);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, hover);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, active);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, border_color);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, knob_normal);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, knob_hover);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, knob_active);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, knob_border_color);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, cursor_normal);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, cursor_hover);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, cursor_active);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, border);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, knob_border);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, padding);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, spacing);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, cursor_width);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, color_factor);
+    DEFOFFSET(style, nk_style, knob, nk_style_knob, disabled_factor);
+
     DEFOFFSET(style, nk_style, progress, nk_style_progress, normal);
     DEFOFFSET(style, nk_style, progress, nk_style_progress, hover);
     DEFOFFSET(style, nk_style, progress, nk_style_progress, active);
