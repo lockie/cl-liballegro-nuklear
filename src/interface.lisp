@@ -31,27 +31,6 @@
   (w :float)
   (h :float))
 
-(defmethod cffi:translate-into-foreign-memory (object (type image) pointer)
-  (if (cffi:pointerp object) ;; allow passing result of nk:allegro-create-image as image struct
-      (let (handle* w* h* region1* region2* region3* region4*)
-        (cffi:with-foreign-slots ((handle w h region1 region2 region3 region4) object (:struct image))
-          (setf handle* handle
-                w* w
-                h* h
-                region1* region1
-                region2* region2
-                region3* region3
-                region4* region4))
-        (cffi:with-foreign-slots ((handle w h region1 region2 region3 region4) pointer (:struct image))
-          (setf handle handle*
-                w w*
-                h h*
-                region1 region1*
-                region2 region2*
-                region3 region3*
-                region4 region4*)))
-      (call-next-method)))
-
 (defmacro tree-push (ctx type title state)
   (let ((hash (string (gensym "nk-tree-hash"))))
     `(tree-push-hashed ,ctx ,type ,title ,state ,hash ,(length hash) 0)))
@@ -2607,6 +2586,27 @@
   (region2 :unsigned-short)
   (region3 :unsigned-short)
   (region4 :unsigned-short))
+
+(defmethod cffi:translate-into-foreign-memory (object (type image) pointer)
+  (if (cffi:pointerp object) ;; allow passing result of nk:allegro-create-image as image struct
+      (let (handle* w* h* region1* region2* region3* region4*)
+        (cffi:with-foreign-slots ((handle w h region1 region2 region3 region4) object (:struct image))
+          (setf handle* handle
+                w* w
+                h* h
+                region1* region1
+                region2* region2
+                region3* region3
+                region4* region4))
+        (cffi:with-foreign-slots ((handle w h region1 region2 region3 region4) pointer (:struct image))
+          (setf handle handle*
+                w w*
+                h h*
+                region1 region1*
+                region2 region2*
+                region3 region3*
+                region4 region4*)))
+      (call-next-method)))
 
 (cffi:defcfun ("nk_image" image) :void
   (arg0 :pointer)
