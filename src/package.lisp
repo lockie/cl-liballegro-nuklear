@@ -128,9 +128,9 @@
    #:nine-slice-ptr
    #:nine-slice-id
    #:nine-slice-is-sub9slice
-   #:sub9slice-ptr
-   #:sub9slice-id
-   #:sub9slice-handle
+   #:sub-9slice-ptr
+   #:sub-9slice-id
+   #:sub-9slice-handle
    ;; Tree
    #:tree-push
    #:tree-push-hashed
