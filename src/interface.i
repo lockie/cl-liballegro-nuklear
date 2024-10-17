@@ -30,25 +30,25 @@
   (w :float)
   (h :float))
 
-(cffi:defcstruct image
-  (handle :pointer)
-  (w :unsigned-short)
-  (h :unsigned-short)
-  (region :uint64))
-
 (defmethod cffi:translate-into-foreign-memory (object (type image) pointer)
   (if (cffi:pointerp object) ;; allow passing result of nk:allegro-create-image as image struct
-      (let (handle* w* h* region*)
-        (cffi:with-foreign-slots ((handle w h region) object (:struct image))
+      (let (handle* w* h* region1* region2* region3* region4*)
+        (cffi:with-foreign-slots ((handle w h region1 region2 region3 region4) object (:struct image))
           (setf handle* handle
                 w* w
                 h* h
-                region* region))
-        (cffi:with-foreign-slots ((handle w h region) pointer (:struct image))
+                region1* region1
+                region2* region2
+                region3* region3
+                region4* region4))
+        (cffi:with-foreign-slots ((handle w h region1 region2 region3 region4) pointer (:struct image))
           (setf handle handle*
                 w w*
                 h h*
-                region region*)))
+                region1 region1*
+                region2 region2*
+                region3 region3*
+                region4 region4*)))
       (call-next-method)))
 
 (defmacro tree-push (ctx type title state)
@@ -64,10 +64,6 @@
 (cffi:defcfun ("nk_vec2" vec-2) (:struct vec-2)
  (x :float)
  (y :float))
-
-(cffi:defcfun ("nk_image" image) :void
-  (arg0 :pointer)
-  (arg1 (:struct image)))
 %}
 
 typedef unsigned char nk_byte;
@@ -781,6 +777,21 @@ void                   nk_allegro5_font_set_font(NkAllegro5Font *font);
 void                   nk_allegro5_setup_assert(void (*debug_break_callback)(const char*), void(*abort_callback)(void));
 
 %insert("swiglisp") %{
+
+;; NOTE: redefinition
+(cffi:defcstruct image
+  (handle :pointer)
+  (w :unsigned-short)
+  (h :unsigned-short)
+  (region1 :unsigned-short)
+  (region2 :unsigned-short)
+  (region3 :unsigned-short)
+  (region4 :unsigned-short))
+
+(cffi:defcfun ("nk_image" image) :void
+  (arg0 :pointer)
+  (arg1 (:struct image)))
+
 (cffi:defcallback break-callback :void ((s :string))
     (break s))
 
