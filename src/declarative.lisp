@@ -66,8 +66,8 @@
                      (the fixnum
                           (,(if title 'nk:begin-titled 'nk:begin)
                            ,context
-                           (string-capitalize ',name)
-                           ,@(when title `(,(string title)))
+                           (string-upcase ',name)
+                           ,@(when title (list title))
                            `(,@(coerce-rect :x ,x :y ,y :w ,w :h ,h))
                            ,(apply #'coerce-flags :panel-flags "+WINDOW-"
                                    flags))))))
@@ -92,7 +92,7 @@
                   (the fixnum
                        (,(if title 'nk:group-begin-titled 'nk:group-begin)
                         ,context
-                        (string-capitalize ',name)
+                        (string-upcase ',name)
                         ,@(when title `(,(string title)))
                         ,(apply #'coerce-flags :panel-flags "+WINDOW-"
                                 flags))))))
