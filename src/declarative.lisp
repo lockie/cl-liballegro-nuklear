@@ -16,6 +16,7 @@
    #:layout-space-push
    #:label
    #:label-wrap
+   #:selectable-label
    #:button-label
    #:progress
    #:input-has-mouse-click
@@ -258,12 +259,25 @@
      (lambda (,context)
        (nk:label-wrap ,context ,text)))))
 
-(defmacro button-label (text &body body)
+(defmacro selectable-label (text value &key (align :left))
   (with-gensyms (context)
    `(call-with-context
      (lambda (,context)
-       (when (plusp (the fixnum (nk:button-label ,context ,text)))
-         ,@body)))))
+       (nk:selectable-label
+        ,context
+        ,text
+        ,(etypecase align
+           (list (apply #'coerce-flags :text-align "+TEXT-ALIGN-" align))
+           ((or symbol string)
+            (coerce-flags :text-alignment "+TEXT-" align)))
+        ,value)))))
+
+(defmacro button-label (text &body body)
+  (with-gensyms (context)
+    `(call-with-context
+      (lambda (,context)
+        (when (plusp (the fixnum (nk:button-label ,context ,text)))
+          ,@body)))))
 
 (defmacro progress (&key current (maximum 100) modifyable)
   (with-gensyms (context)
