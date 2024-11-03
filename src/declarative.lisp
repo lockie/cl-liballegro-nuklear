@@ -19,6 +19,7 @@
    #:selectable-label
    #:button-label
    #:progress
+   #:edit
    #:input-has-mouse-click
    #:input-has-mouse-click-in))
 
@@ -287,6 +288,16 @@
                  (coerce-constant ,current non-negative-fixnum)
                  (coerce-constant ,maximum non-negative-fixnum)
                  ,(if modifyable nk::+true+ nk::+false+))))))
+
+(defmacro edit (buffer &key size (filter (cffi:null-pointer)) flags)
+  (with-gensyms (context)
+    `(call-with-context
+      (lambda (,context)
+        (the fixnum
+             (nk:edit-string-zero-terminated
+              ,context
+              ,(apply #'coerce-flags :edit-flags "+EDIT-" flags)
+              ,buffer ,(or size `(1+ (length ,buffer))) ,filter))))))
 
 (defmacro input-has-mouse-click (button)
   (with-gensyms (context)
