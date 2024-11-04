@@ -121,10 +121,11 @@ See [declarative.lisp](https://gitlab.com/lockie/cl-liballegro-nuklear/-/blob/ma
 
 Games made using cl-liballegro-nuklear
 --------------------------------------
-* [Darkness Looming: The Dawn](https://awkravchuk.itch.io/darkness-looming-the-dawn)
-* [Thoughtbound](https://awkravchuk.itch.io/thoughtbound)
-* [Mana Break](https://awkravchuk.itch.io/mana-break)
+* [Lispy Rogue](https://awkravchuk.itch.io/lispy-rogue)
 * [Cycle of Evil](https://awkravchuk.itch.io/cycle-of-evil)
+* [Mana Break](https://awkravchuk.itch.io/mana-break)
+* [Thoughtbound](https://awkravchuk.itch.io/thoughtbound)
+* [Darkness Looming: The Dawn](https://awkravchuk.itch.io/darkness-looming-the-dawn)
 * [make your own!](https://gitlab.com/lockie/cl-liballegro-nuklear/-/issues/new)
 
 Related projects
