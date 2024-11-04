@@ -84,7 +84,7 @@ There's also lispy interface making library interaction more idiomatic of CL. Se
 
 Declarative interface
 ---------------------
-There's also declarative interface in separate package `cl-liballegro-nuklear/declarative` which allows you to define an anonymous function doing all required FFI calls and type conversions. To do that, use `defwindow` macro in the following fashion:
+There's also declarative interface in separate package `cl-liballegro-nuklear/declarative` which allows you to define a function doing all required FFI calls and type conversions. To do that, use `defwindow` macro in the following fashion:
 
 ```common-lisp
 (uiop:add-package-local-nickname :ui :cl-liballegro-nuklear/declarative)
