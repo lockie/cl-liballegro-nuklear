@@ -1,6 +1,9 @@
 lib_extension=
 lib_prefix=
 exe_extension=
+ifeq ($(shell uname -o),Msys)
+  OS=Windows_NT
+endif
 ifeq ($(OS),Windows_NT)
 	lib_extension=dll
 	exe_extension=.exe
