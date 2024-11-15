@@ -2,18 +2,10 @@
 (defmethod perform ((o load-op) (c makefile)) t)
 (defmethod perform ((o compile-op) (c makefile))
   (uiop:run-program
-   (format nil "cd ~a ~a && make -s"
-           #+windows (if (uiop:string-prefix-p
-                          "MINGW"
-                          (uiop:run-program "uname -a"
-                                            :output :string
-                                            :ignore-error-status t))
-                      ""
-                      "/d")
-           #-windows ""
+   (format nil "make -C ~a -s"
            (uiop:pathname-directory-pathname
             (component-pathname c)))
-                    :output t))
+   :output t))
 
 (asdf:defsystem :cl-liballegro-nuklear
   :version "0.0.8"
