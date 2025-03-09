@@ -182,7 +182,7 @@
                        (nk:style-pop-font ,context)))
                     ((:float name value)
                      `((let ((,offset (style-offset ,context ,name)))
-                         (nk:style-push-float ,context ,offset ,value))
+                         (nk:style-push-float ,context ,offset (float ,value)))
                        (nk:style-pop-float ,context)))
                     ((:vec2 name &key (x 0) (y 0))
                      `((let ((,offset (style-offset ,context ,name)))
