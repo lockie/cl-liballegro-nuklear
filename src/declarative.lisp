@@ -18,6 +18,7 @@
    #:label-wrap
    #:selectable-label
    #:button-label
+   #:button-image
    #:progress
    #:edit
    #:input-has-mouse-click
@@ -278,6 +279,13 @@
     `(call-with-context
       (lambda (,context)
         (when (plusp (the fixnum (nk:button-label ,context ,text)))
+          ,@body)))))
+
+(defmacro button-image (image &body body)
+  (with-gensyms (context)
+    `(call-with-context
+      (lambda (,context)
+        (when (plusp (the fixnum (nk:button-image ,context ,image)))
           ,@body)))))
 
 (defmacro progress (&key current (maximum 100) modifyable)
