@@ -309,9 +309,7 @@
 	(#.(swig-lispify "EDIT_NO_HORIZONTAL_SCROLL" 'enumvalue :keyword) #.256)
 	(#.(swig-lispify "EDIT_ALWAYS_INSERT_MODE" 'enumvalue :keyword) #.512)
 	(#.(swig-lispify "EDIT_MULTILINE" 'enumvalue :keyword) #.1024)
-	(#.(swig-lispify "EDIT_GOTO_END_ON_ACTIVATE" 'enumvalue :keyword) #.2048))
-
-(cffi:defcenum #.(swig-lispify "edit_types" 'enumname)
+	(#.(swig-lispify "EDIT_GOTO_END_ON_ACTIVATE" 'enumvalue :keyword) #.2048)
 	(#.(swig-lispify "EDIT_SIMPLE" 'enumvalue :keyword) #.512)
 	(#.(swig-lispify "EDIT_FIELD" 'enumvalue :keyword) #.608)
 	(#.(swig-lispify "EDIT_BOX" 'enumvalue :keyword) #.1640)

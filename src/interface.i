@@ -205,9 +205,7 @@ enum nk_edit_flags {
     NK_EDIT_NO_HORIZONTAL_SCROLL    = 256,
     NK_EDIT_ALWAYS_INSERT_MODE      = 512,
     NK_EDIT_MULTILINE               = 1024,
-    NK_EDIT_GOTO_END_ON_ACTIVATE    = 2048
-};
-enum nk_edit_types {
+    NK_EDIT_GOTO_END_ON_ACTIVATE    = 2048,
     NK_EDIT_SIMPLE  = 512,
     NK_EDIT_FIELD   = 608,
     NK_EDIT_BOX     = 1640,
