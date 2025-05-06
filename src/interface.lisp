@@ -585,6 +585,11 @@
   (arg2 #.(swig-lispify "show_states" 'enumname))
   (cond :int))
 
+(cffi:defcfun ("nk_rule_horizontal" #.(swig-lispify "rule_horizontal" 'function)) :void
+  (ctx :pointer)
+  (color (:struct #.(swig-lispify "color" 'classname)))
+  (rounding :int))
+
 (cffi:defcfun ("nk_layout_set_min_row_height" #.(swig-lispify "layout_set_min_row_height" 'function)) :void
   (arg0 :pointer)
   (height :float))
