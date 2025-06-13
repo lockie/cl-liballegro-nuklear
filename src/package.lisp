@@ -89,6 +89,7 @@
    #:window-collapse-if
    #:window-show
    #:window-show-if
+   #:rule-horizontal
    ;; Layout
    #:layout-set-min-row-height
    #:layout-reset-min-row-height
