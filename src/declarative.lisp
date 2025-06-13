@@ -9,6 +9,7 @@
    #:defwindow
    #:defgroup
    #:with-context
+   #:with-disabled-widgets
    #:styles
    #:layout-row-static
    #:layout-row-dynamic
@@ -110,6 +111,16 @@
   `(call-with-context
     (lambda (,context)
       ,@body)))
+
+(defmacro with-disabled-widgets ((&key (disabled t)) &body body)
+  (with-gensyms (context)
+    `(call-with-context
+      (lambda (,context)
+        (when ,disabled
+          (nk:widget-disable-begin ,context))
+        ,@body
+        (when ,disabled
+          (nk:widget-disable-end ,context))))))
 
 (defmacro style-offset (context offset)
   `(cffi:inc-pointer
