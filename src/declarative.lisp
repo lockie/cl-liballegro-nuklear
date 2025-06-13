@@ -13,6 +13,8 @@
    #:styles
    #:layout-row-static
    #:layout-row-dynamic
+   #:layout-rows
+   #:layout-row-push
    #:layout-space
    #:layout-space-push
    #:label
@@ -229,6 +231,26 @@
          ,context
          (coerce-constant ,height single-float)
          (coerce-constant ,columns fixnum))))))
+
+(defmacro layout-rows ((&key height format columns) &body body)
+  (with-gensyms (context)
+    `(call-with-context
+      (lambda (,context)
+        (nk:layout-row-begin
+         ,context
+         ,(coerce-flags :layout-format "+" format)
+         (coerce-constant ,height single-float)
+         ,columns)
+        (unwind-protect
+             (progn ,@body)
+          (nk:layout-row-end ,context))))))
+
+(defmacro layout-row-push (width-or-ratio)
+  (with-gensyms (context)
+    `(call-with-context
+      (lambda (,context)
+        (nk:layout-row-push ,context
+                            (coerce-constant ,width-or-ratio single-float))))))
 
 (defmacro layout-space ((&key height format widget-count) &body body)
   (with-gensyms (context)
