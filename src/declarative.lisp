@@ -151,7 +151,7 @@
                                        '(nk::r ,r nk::g ,g nk::b ,b nk::a ,a))
                                       t)
                                     `(nk:style-item-color
-                                      '(nk::r ,r nk::g ,g nk::b ,b nk::a ,a)))))
+                                      `(nk::r ,,r nk::g ,,g nk::b ,,b nk::a ,,a)))))
                          (nk:style-push-style-item ,context ,offset ,item))
                        (nk:style-pop-style-item ,context)))
                     ((:item-image name image)
