@@ -5,7 +5,8 @@
    (format nil "make -C ~a -s"
            (uiop:pathname-directory-pathname
             (component-pathname c)))
-   :output t))
+   :output t
+   :error-output :output))
 
 (asdf:defsystem :cl-liballegro-nuklear
   :version "0.0.10"
