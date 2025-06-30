@@ -1,4 +1,3 @@
-#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
@@ -12,9 +11,10 @@
 
 const char* kebabize(const char* string)
 {
-    char* result = strdup(string);
+    size_t length = strlen(string);
+    char* result = malloc(length);
     size_t i;
-    for(i = 0; i < strlen(string); i++)
+    for(i = 0; i < length; i++)
     {
         if(string[i] == '_')
             result[i] = '-';
