@@ -11,8 +11,8 @@
 
 const char* kebabize(const char* string)
 {
-    size_t length = strlen(string);
-    char* result = malloc(length);
+    size_t length = strlen(string) + 1;
+    char* result = calloc(length, 1);
     size_t i;
     for(i = 0; i < length; i++)
     {
