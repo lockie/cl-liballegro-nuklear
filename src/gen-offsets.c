@@ -25,40 +25,40 @@ const char* kebabize(const char* string)
 }
 
 #define DEFOFFSET(field1, struct2, field2, struct3, field3)         \
-    printf("(defconstant +%s-%s-%s+ %zu)\n",                        \
+    printf("(defconstant +%s-%s-%s+ %d)\n",                         \
            kebabize(#field1), kebabize(#field2), kebabize(#field3), \
-           offsetof(struct nk_context, field1)                      \
-           + offsetof(struct struct2, field2)                       \
-           + offsetof(struct struct3, field3))
+           (int)(offsetof(struct nk_context, field1)                \
+                 + offsetof(struct struct2, field2)                 \
+                 + offsetof(struct struct3, field3)))
 
-#define DEFOFFSET4(field1, struct2, field2, struct3, field3, struct4, field4)          \
-    printf("(defconstant +%s-%s-%s-%s+ %zu)\n",                                        \
+#define DEFOFFSET4(field1, struct2, field2, struct3, field3, struct4, field4) \
+    printf("(defconstant +%s-%s-%s-%s+ %d)\n",                          \
            kebabize(#field1), kebabize(#field2), kebabize(#field3), kebabize(#field4), \
-           offsetof(struct nk_context, field1)                                         \
-           + offsetof(struct struct2, field2)                                          \
-           + offsetof(struct struct3, field3)                                          \
-           + offsetof(struct struct4, field4))
+           (int)(offsetof(struct nk_context, field1)                    \
+                 + offsetof(struct struct2, field2)                     \
+                 + offsetof(struct struct3, field3)                     \
+                 + offsetof(struct struct4, field4)))
 
-#define DEFOFFSET5(field1, struct2, field2, struct3, field3, struct4, field4, struct5, field5)            \
-    printf("(defconstant +%s-%s-%s-%s-%s+ %zu)\n",                                                        \
+#define DEFOFFSET5(field1, struct2, field2, struct3, field3, struct4, field4, struct5, field5) \
+    printf("(defconstant +%s-%s-%s-%s-%s+ %d)\n",                       \
            kebabize(#field1), kebabize(#field2), kebabize(#field3), kebabize(#field4), kebabize(#field5), \
-           offsetof(struct nk_context, field1)                                                            \
-           + offsetof(struct struct2, field2)                                                             \
-           + offsetof(struct struct3, field3)                                                             \
-           + offsetof(struct struct4, field4)                                                             \
-           + offsetof(struct struct5, field5))
+           (int)(offsetof(struct nk_context, field1)                    \
+                 + offsetof(struct struct2, field2)                     \
+                 + offsetof(struct struct3, field3)                     \
+                 + offsetof(struct struct4, field4)                     \
+                 + offsetof(struct struct5, field5)))
 
 #define DEFOFFSET6(field1, struct2, field2, struct3, field3,           \
                    struct4, field4, struct5, field5, struct6, field6)  \
-    printf("(defconstant +%s-%s-%s-%s-%s-%s+ %zu)\n",                  \
+    printf("(defconstant +%s-%s-%s-%s-%s-%s+ %d)\n",                   \
            kebabize(#field1), kebabize(#field2), kebabize(#field3),    \
            kebabize(#field4), kebabize(#field5), kebabize(#field6),    \
-           offsetof(struct nk_context, field1)                         \
-           + offsetof(struct struct2, field2)                          \
-           + offsetof(struct struct3, field3)                          \
-           + offsetof(struct struct4, field4)                          \
-           + offsetof(struct struct5, field5)                          \
-           + offsetof(struct struct6, field6))
+           (int)(offsetof(struct nk_context, field1)                   \
+                 + offsetof(struct struct2, field2)                    \
+                 + offsetof(struct struct3, field3)                    \
+                 + offsetof(struct struct4, field4)                    \
+                 + offsetof(struct struct5, field5)                    \
+                 + offsetof(struct struct6, field6)))
 
 int main(void)
 {
