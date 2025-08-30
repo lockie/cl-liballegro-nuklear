@@ -1,6 +1,7 @@
+#include <stdarg.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
 #include <string.h>
 
 #define NK_INCLUDE_DEFAULT_ALLOCATOR
@@ -9,56 +10,59 @@
 #define NK_BUTTON_TRIGGER_ON_RELEASE
 #include "nuklear.h"
 
-const char* kebabize(const char* string)
+
+static char buffer[4096];
+
+void print_kebabized(const char* format, ...)
 {
-    size_t length = strlen(string);
-    char* result = calloc(length + 1, 1);
-    size_t i;
-    for(i = 0; i < length; i++)
+    char* c;
+    va_list args;
+    va_start(args, format);
+    vsprintf(buffer, format, args);
+    for(c = buffer; *c; c++)
     {
-        if(string[i] == '_')
-            result[i] = '-';
+        if(*c == '_')
+            putchar('-');
         else
-            result[i] = string[i];
+            putchar(*c);
     }
-    return result;
+    va_end(args);
 }
 
-#define DEFOFFSET(field1, struct2, field2, struct3, field3)         \
-    printf("(defconstant +%s-%s-%s+ %d)\n",                         \
-           kebabize(#field1), kebabize(#field2), kebabize(#field3), \
-           (int)(offsetof(struct nk_context, field1)                \
-                 + offsetof(struct struct2, field2)                 \
-                 + offsetof(struct struct3, field3)))
+#define DEFOFFSET(field1, struct2, field2, struct3, field3)             \
+    print_kebabized("(defconstant +%s-%s-%s+ %d)\n",                    \
+                    #field1, #field2, #field3,                          \
+                    (int)(offsetof(struct nk_context, field1)           \
+                          + offsetof(struct struct2, field2)            \
+                          + offsetof(struct struct3, field3)))
 
 #define DEFOFFSET4(field1, struct2, field2, struct3, field3, struct4, field4) \
-    printf("(defconstant +%s-%s-%s-%s+ %d)\n",                          \
-           kebabize(#field1), kebabize(#field2), kebabize(#field3), kebabize(#field4), \
-           (int)(offsetof(struct nk_context, field1)                    \
-                 + offsetof(struct struct2, field2)                     \
-                 + offsetof(struct struct3, field3)                     \
-                 + offsetof(struct struct4, field4)))
+    print_kebabized("(defconstant +%s-%s-%s-%s+ %d)\n",                 \
+                    #field1, #field2, #field3, #field4,                 \
+                    (int)(offsetof(struct nk_context, field1)           \
+                          + offsetof(struct struct2, field2)            \
+                          + offsetof(struct struct3, field3)            \
+                          + offsetof(struct struct4, field4)))
 
 #define DEFOFFSET5(field1, struct2, field2, struct3, field3, struct4, field4, struct5, field5) \
-    printf("(defconstant +%s-%s-%s-%s-%s+ %d)\n",                       \
-           kebabize(#field1), kebabize(#field2), kebabize(#field3), kebabize(#field4), kebabize(#field5), \
-           (int)(offsetof(struct nk_context, field1)                    \
-                 + offsetof(struct struct2, field2)                     \
-                 + offsetof(struct struct3, field3)                     \
-                 + offsetof(struct struct4, field4)                     \
-                 + offsetof(struct struct5, field5)))
+    print_kebabized("(defconstant +%s-%s-%s-%s-%s+ %d)\n",              \
+                    #field1, #field2, #field3, #field4, #field5,        \
+                    (int)(offsetof(struct nk_context, field1)           \
+                          + offsetof(struct struct2, field2)            \
+                          + offsetof(struct struct3, field3)            \
+                          + offsetof(struct struct4, field4)            \
+                          + offsetof(struct struct5, field5)))
 
-#define DEFOFFSET6(field1, struct2, field2, struct3, field3,           \
-                   struct4, field4, struct5, field5, struct6, field6)  \
-    printf("(defconstant +%s-%s-%s-%s-%s-%s+ %d)\n",                   \
-           kebabize(#field1), kebabize(#field2), kebabize(#field3),    \
-           kebabize(#field4), kebabize(#field5), kebabize(#field6),    \
-           (int)(offsetof(struct nk_context, field1)                   \
-                 + offsetof(struct struct2, field2)                    \
-                 + offsetof(struct struct3, field3)                    \
-                 + offsetof(struct struct4, field4)                    \
-                 + offsetof(struct struct5, field5)                    \
-                 + offsetof(struct struct6, field6)))
+#define DEFOFFSET6(field1, struct2, field2, struct3, field3,            \
+                   struct4, field4, struct5, field5, struct6, field6)   \
+    print_kebabized("(defconstant +%s-%s-%s-%s-%s-%s+ %d)\n",           \
+                    #field1, #field2, #field3, #field4, #field5, #field6, \
+                    (int)(offsetof(struct nk_context, field1)           \
+                          + offsetof(struct struct2, field2)            \
+                          + offsetof(struct struct3, field3)            \
+                          + offsetof(struct struct4, field4)            \
+                          + offsetof(struct struct5, field5)            \
+                          + offsetof(struct struct6, field6)))
 
 int main(void)
 {
