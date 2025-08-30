@@ -37,7 +37,7 @@ $(dir)offsets.lisp: $(dir)gen-offsets$(exe_extension)
 	$^ > $@
 
 $(dir)gen-offsets$(exe_extension): $(dir)gen-offsets.c
-	$(CC) $(CFLAGS) $< -std=c89 -O2 -pipe -fPIC $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $< -std=c89 -pipe -fPIC $(LDFLAGS) -o $@
 
 $(dir)$(lib_prefix)allegro_nuklear.$(lib_extension): $(dir)nuklear.c $(dir)nuklear.h $(dir)nuklear_allegro5.h
 	$(CC) $(CFLAGS) $< -std=c89 -O2 -pipe -fPIC -shared $(LDFLAGS) -o $@
