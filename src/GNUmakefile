@@ -34,7 +34,7 @@ $(dir)interface.lisp: $(dir)interface.i
 	sed -i 's/"allegro5/"allegro/g' $@
 
 $(dir)offsets.lisp: $(dir)gen-offsets$(exe_extension)
-	$^ > $@
+	$^ $@
 
 $(dir)gen-offsets$(exe_extension): $(dir)gen-offsets.c
 	$(CC) $(CFLAGS) $< -std=c89 -pipe -fPIC $(LDFLAGS) -o $@
