@@ -24,6 +24,7 @@
    #:button-image
    #:progress
    #:edit
+   #:rule
    #:input-has-mouse-click
    #:input-has-mouse-click-in))
 
@@ -339,6 +340,14 @@
               ,context
               ,(apply #'coerce-flags :edit-flags "+EDIT-" flags)
               ,buffer ,(or size `(1+ (length ,buffer))) ,filter))))))
+
+(defmacro rule (&key (r 0) (g 0) (b 0) (a 255) (rounding 0))
+  (with-gensyms (context)
+    `(call-with-context
+      (lambda (,context)
+        (nk:rule-horizontal ,context
+                            `(nk::r ,,r nk::g ,,g nk::b ,,b nk::a ,,a)
+                            ,rounding)))))
 
 (defmacro input-has-mouse-click (button)
   (with-gensyms (context)
