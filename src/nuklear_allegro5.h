@@ -168,8 +168,6 @@ nk_allegro5_render()
     allegro5.ctx.delta_time_seconds = now - allegro5.delta_time_seconds_last;
     allegro5.delta_time_seconds_last = now;
 
-    al_set_target_backbuffer(allegro5.dsp);
-
     nk_foreach(cmd, &allegro5.ctx)
     {
         ALLEGRO_COLOR color;
