@@ -7,7 +7,9 @@
   (:import-from :uiop :string-prefix-p)
   (:export
    #:defwindow
+   #:define-window
    #:defgroup
+   #:define-group
    #:with-context
    #:with-disabled-widgets
    #:styles
@@ -83,6 +85,9 @@
                      ,@forms)
                 (nk:end ,context)))))))))
 
+(setf (macro-function 'define-window)
+      (macro-function 'defwindow))
+
 (defmacro defgroup (name (&key title flags styles)  &body body)
   (with-gensyms (context result)
     (multiple-value-bind (forms declarations docstring)
@@ -109,6 +114,9 @@
                   nil)
              (when ,result
                (nk:group-end ,context))))))))))
+
+(setf (macro-function 'define-group)
+      (macro-function 'defgroup))
 
 (defmacro with-context (context &body body)
   `(call-with-context
