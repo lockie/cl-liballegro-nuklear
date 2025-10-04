@@ -27,6 +27,8 @@
    #:progress
    #:edit
    #:rule
+   #:with-popup
+   #:close-popup
    #:input-has-mouse-click
    #:input-has-mouse-click-in))
 
@@ -356,6 +358,28 @@
         (nk:rule-horizontal ,context
                             `(nk::r ,,r nk::g ,,g nk::b ,,b nk::a ,,a)
                             ,rounding)))))
+
+
+(defmacro with-popup ((&key type title flags x y w h) &body body)
+  (with-gensyms (context result)
+    `(call-with-context
+      (lambda (,context)
+        (let ((,result
+                (plusp
+                 (the fixnum
+                      (nk:popup-begin
+                       ,context
+                       ,(coerce-flags :popup-type "+POPUP-" type)
+                       ,title
+                       ,(apply #'coerce-flags :panel-flags "+WINDOW-" flags)
+                       `(,@(coerce-rect :x ,x :y ,y :w ,w :h ,h)))))))
+          (unwind-protect
+               (when ,result
+                 (flet ((close-popup ()
+                          (nk:popup-close ,context)))
+                   (declare (inline close-popup))
+                   ,@body))
+            (nk:popup-end ,context)))))))
 
 (defmacro input-has-mouse-click (button)
   (with-gensyms (context)
