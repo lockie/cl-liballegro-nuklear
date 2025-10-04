@@ -29,6 +29,8 @@
    #:rule
    #:with-popup
    #:close-popup
+   #:widget-hovered-p
+   #:widget-position
    #:input-has-mouse-click
    #:input-has-mouse-click-in))
 
@@ -380,6 +382,20 @@
                    (declare (inline close-popup))
                    ,@body))
             (nk:popup-end ,context)))))))
+
+(defmacro widget-hovered-p ()
+  (with-gensyms (context)
+    `(call-with-context
+      (lambda (,context)
+        (plusp (the fixnum (nk:widget-is-hovered ,context)))))))
+
+(defmacro widget-position ()
+  (with-gensyms (context position)
+    `(call-with-context
+      (lambda (,context)
+        (let ((,position (nk:widget-position ,context)))
+          (values (getf ,position 'nk::x)
+                  (getf ,position 'nk::y)))))))
 
 (defmacro input-has-mouse-click (button)
   (with-gensyms (context)
