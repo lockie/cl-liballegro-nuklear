@@ -9,7 +9,7 @@
    :error-output :output))
 
 (asdf:defsystem :cl-liballegro-nuklear
-  :version "0.0.11"
+  :version "0.0.12"
   :description "CFFI wrapper for the Nuklear IM GUI library with liballegro backend, to be used with cl-liballegro."
   :author "Andrew Kravchuk <awkravchuk@gmail.com>"
   :license "MIT"
